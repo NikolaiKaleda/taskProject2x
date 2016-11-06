@@ -1,0 +1,271 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+//----- FONTS -----
+
+@font-face {
+    font-family: sfuiFont;
+    src: url(partials/fonts/SF-UI-Text-Semibold.otf);
+    src: local('☺'),
+    	url('../fonts/SF-UI-Text-Semibold.eot?') format('embedded-opentype'),
+        url('../fonts/SF-UI-Text-Semibold.woff') format('woff'),
+        url('../fonts/SF-UI-Text-Semibold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+//----- End fonts -----
+
+
+
+//----- Reset style -----
+
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+	background-color: white;
+	width: 100%;
+}
+ul, li {
+	list-style: none;	
+}
+
+a {
+    -webkit-transition: all 0.4s ease-out 0s;
+    -moz-transition: all 0.4s ease-out 0s;
+    -o-transition: all 0.4s ease-out 0s;
+    transition: all 0.4s ease-out 0s;
+}
+
+.topAnchor {
+	height: 0px;
+    margin: 0;
+}
+
+
+//----- SIDEBAR -----
+body {
+    font-size: 15px;
+    .sidebar {
+        position: relative;
+        float: left;
+        width: 22.8em;
+        height: 100%;
+        background-color: $sideBarBg;
+        .userInfo {
+            .userImgContainer {
+                padding: 1.3em 0 0 2.67em;
+                margin-bottom: 1.7em;
+                .userName {
+                    @include input-font($semiboldFont, 1em, $fontColor, 0, normal);
+					margin-left: 1em;
+                    display: inline-block;
+                }
+                .userImg {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 4em;
+                }
+            }
+        }
+        .projects {
+            .projectsList {
+                margin-left: 2em;
+                padding: 0;
+                .addNewProject {
+                    .addProjectLink {
+                        p, i {
+                            @include input-font($semiboldFont, 0.9em, $fontColor2, 0, normal);
+                            margin: 1.1em 0;
+                        }
+                        i {
+                            color: $fontColor;
+                        }
+                    }
+                }
+                .projectItem {
+                    a {
+                        width: 17.8em;
+                        display: block;
+                        text-decoration: none;
+                        border-radius: 0.33em;
+                        background-color: $sideBarBg;
+                        padding-left: 1.06em;
+                        position: relative;
+                        .itemMenuName {
+                            margin: 0.75em 0;
+                        }
+                        p, .itemMenuNumber {
+                            @include input-font($semiboldFont, 1em, $fontColor, 0, normal);
+                            display: inline-block;
+                        }
+                        i, .itemMenuNumber {
+                            text-align: right;
+                            position: absolute;
+                            right: 1.06em;
+                        }
+                    }
+                    .active {
+                        background-color: $hoverBg;
+                        border-radius: 0.33em;
+                    }
+                    a:hover {
+                        background-color: $hoverBg;
+                    }
+                }
+            }
+        }
+		.logOut {
+			bottom: 1em;
+    		position: absolute;
+            width: 18.8em;
+            margin-left: 2em;
+            border-radius: 0.33em;
+            background-color: $sideBarBg;
+            a {
+                @include input-font($semiboldFont, 1em, $fontColor, 0, normal);
+                display: block;
+                width: 100%;
+                text-decoration: none;
+                padding: 1em 0 1em 1.06em;
+            }
+        }
+        .logOut:hover {
+            background-color: $hoverBg;
+        }
+    }
+    .content {
+        overflow: auto;
+        .topPanel {
+            border-bottom: 1px solid #bdbdbd;
+            padding-top: 0.9em;
+            padding-bottom: 0.9em;
+			nav {
+				display: inline;
+			}
+			.moreBtn {
+				float: right;
+                font-size: 1.5em;
+                margin-right: 1em;
+                text-decoration: none;
+                color: #9e9e9e;
+			}.moreBtn:hover {
+                color: $hoverBg;
+			}
+			.dropdown-toggle {
+			    border-radius: .2em .2em 0 0;
+			}
+			ul.dropdown {
+			    display:none;
+			    position: absolute;
+			    min-width: 12em;
+			    padding: 0;
+			    border-radius: 0.66em;
+				right: 0;
+				li {
+					-webkit-transition: all 0.4s ease-out 0s;
+					-moz-transition: all 0.4s ease-out 0s;
+					-o-transition: all 0.4s ease-out 0s;
+					transition: all 0.4s ease-out 0s;
+					border-radius: 0.33em;
+				    list-style-type: none;
+				    a {
+						@include input-font($semiboldFont, 1em, $fontColor3, 0, normal);
+					    text-decoration: none;
+						text-align: right;
+						padding: .5em 1em;
+						display: block;
+				    }
+			    }
+				li:hover {
+					background-color: $hoverBg;
+					a {
+						color: $fontColor;
+					}
+				}
+			}
+            .search {
+                margin-left: 0.9em;
+                font-size: 1.5em;
+                color: #b3bbcb;
+                text-decoration: none;
+            }
+        }
+        .tasks {
+            .taskItem {
+                width: 41.4em;
+                margin: 0 auto;
+                .taskDate {
+                    @include input-font($semiboldFont, 1em, $fontColor2, 0, normal);
+                    margin: 1em 0 .66em .5em;
+                }
+                .taskLink {
+                    border-radius: 0.66em;
+                    box-shadow: 0 1px 30px 0 rgba(0, 0, 0, .16);
+                    .taskBtn {
+                        display: block;
+                        border-radius: 0.66em;
+                        text-decoration: none;
+                        .checkbox {
+                            display: inline-block;
+                            img {
+                                width: 1.3em;
+                                vertical-align: middle;
+                                margin: 1.3em 2.1em;
+                            }
+                        }
+                        .taskText {
+                            @include input-font($semiboldFont, 1em, $fontColor3, 0, normal);
+                            display: inline-block;
+                            margin: 0;
+                            padding: 0.85em 0 0.85em 1.1em;
+                            border-left: 1px solid $separatorColor;
+                        }
+                    }
+                    .taskBtn:hover {
+                        background-color: rgba(0, 0, 0, 0.05);
+                    }
+                    .taskSeparator {
+                        width: 33.3em;
+                        background-color: $separatorColor;
+                        margin-top: 0;
+                        margin-bottom: 0;     
+                        border: none;
+                        height: 1px;
+                    }
+                }
+            }
+        }
+        .floating {
+            float: right;
+            margin-right: 2em;
+            margin-bottom: 2em;
+            .floatingBtn {
+                font-size: 1.13em;
+				display: block;
+				width: 1em;
+				padding: 1em;
+				margin-top: 2.5em;
+				background-color: #6b6b99;
+				border-radius: 2.26em;
+                i {
+                    color: $fontColor;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+{
+  "name": "taskProject2x",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Nikolai Kaleda"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/NikolaiKaleda/taskProject2x",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize.css": "*",
+    "jquery": "2.*"
+  }
+}

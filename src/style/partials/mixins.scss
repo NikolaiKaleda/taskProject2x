@@ -1,0 +1,20 @@
+/*----- MIXINS -----*/
+
+@mixin input-position($top, $left) {
+    position: absolute;
+    top: $top;
+    left: $left;
+}
+
+@mixin marginPaddingReset {
+    margin: 0;
+    padding: 0;
+}
+
+@mixin input-font($family, $size, $color, $spacing, $weight) {
+    font-family: $family, Helvetica, Arial, sans-serif;
+    font-size: $size;
+    color: $color;
+    letter-spacing: $spacing;
+	font-weight: $weight;
+}
