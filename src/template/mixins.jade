@@ -1,0 +1,7 @@
+mixin styles(...files)
+    each file in files
+        link(rel="stylesheet",href=file)
+        
+mixin scripts(...files)
+    each file in files
+        script(type="text/javascript" src="file")

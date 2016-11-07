@@ -47,9 +47,10 @@ a {
 //----- SIDEBAR -----
 body {
     font-size: 15px;
+    display: table;
     .sidebar {
         position: relative;
-        float: left;
+        display: table-cell;
         width: 22.8em;
         height: 100%;
         background-color: $sideBarBg;

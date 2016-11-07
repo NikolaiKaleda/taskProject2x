@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     prefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
+    jade = require('gulp-jade'),
     sourcemaps = require('gulp-sourcemaps'),
     rigger = require('gulp-rigger'),
     cssmin = require('gulp-minify-css'),
@@ -13,25 +14,35 @@ var gulp = require('gulp'),
     rimraf = require('rimraf'),
     browserSync = require("browser-sync"),
     reload = browserSync.reload;
+    
+ 
+// чтобы запустить эту задачу, наберите в командной строке gulp jade/./
+gulp.task('jade', function() {
+    return gulp.src('src/*.jade')
+        .pipe(jade({pretty: true}))
+        .pipe(gulp.dest('dist/')); // указываем gulp куда положить скомпилированные HTML файлы
+});
+
+
 
 
 var path = {
     dist: { //Тут мы укажем куда складывать готовые после сборки файлы
-        html: 'dist/',
+        //html: 'dist/',
         js: 'dist/js/',
         css: 'dist/css/',
         img: 'dist/img/',
         fonts: 'dist/fonts/'
     },
     src: { //Пути откуда брать исходники
-        html: 'src/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
+        //html: 'src/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
         js: 'src/js/main.js',//В стилях и скриптах нам понадобятся только main файлы
         style: 'src/style/main.scss',
         img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
         fonts: 'src/fonts/**/*.*'
     },
     watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
-        html: 'src/**/*.html',
+        //html: 'src/**/*.html',
         js: 'src/js/**/*.js',
         style: 'src/style/**/*.scss',
         img: 'src/img/**/*.*',
@@ -52,12 +63,12 @@ var config = {
 };
 
 
-gulp.task('html:dist', function () {
+/*gulp.task('html:dist', function () {
     gulp.src(path.src.html) //Выберем файлы по нужному пути
         .pipe(rigger()) //Прогоним через rigger
         .pipe(gulp.dest(path.dist.html)) //Выплюнем их в папку dist
         .pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
-});
+});*/
 
 
 gulp.task('js:dist', function () {
@@ -107,14 +118,15 @@ gulp.task('dist', [
     'js:dist',
     'style:dist',
     'fonts:dist',
-    'image:dist'
+    'image:dist',
+    'jade:dist'
 ]);
 
 
 gulp.task('watch', function(){
-    watch([path.watch.html], function(event, cb) {
+    /*watch([path.watch.html], function(event, cb) {
         gulp.start('html:dist');
-    });
+    });*/
     watch([path.watch.style], function(event, cb) {
         gulp.start('style:dist');
     });
@@ -126,6 +138,9 @@ gulp.task('watch', function(){
     });
     watch([path.watch.fonts], function(event, cb) {
         gulp.start('fonts:dist');
+    });
+    watch([path.watch.jade], function(event, cb) {
+        gulp.start('jade:dist');
     });
 });
 
@@ -140,4 +155,7 @@ gulp.task('clean', function (cb) {
 });
 
 
-gulp.task('default', ['dist', 'webserver', 'watch']);
+gulp.task('default', ['dist', 'jade', 'webserver', 'watch']);
+
+
+

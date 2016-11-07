@@ -12,7 +12,3 @@ $(function() {
 	});
 });
 
-$(document).ready(function () {
-	var bodyHeight = $('body').outerHeight();
-	$('.sidebar').height(bodyHeight);
-});
