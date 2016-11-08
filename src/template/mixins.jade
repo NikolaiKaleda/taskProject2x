@@ -19,13 +19,15 @@ mixin menuItems(linkClass,linkhref,paragrafClass,paragrafText,paragraf2Class,par
         a(class=linkClass href=linkhref) #{linkText}
             p(class=paragrafClass) #{paragrafText}
             p(class=paragraf2Class) #{paragraf2Text}
-            
-            
+
+
 mixin tasksItems(taskLink,imgSrc,imgAlt,paragrafText)
     a(class='taskBtn' href=taskLink)
         .checkbox
             img(src=imgSrc alt=imgAlt)
             p.taskText #{paragrafText}
-                    
-    
- 
+
+
+mixin dropdownItems(linkHref,linkText)
+    li
+        a(href=linkHref) #{linkText}

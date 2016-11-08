@@ -1,0 +1,15 @@
+include ../template/mixins
+
+section.topPanel
+    a.search(href="#")
+        i.icons8-search
+    nav
+        a.dropdown-toggle.moreBtn(href="#" title="Menu")
+            i.icons8-more
+        ul.dropdown
+            block dropdown
+            +dropdownItems('#','Menu Item')
+            +dropdownItems('#','Menu')
+            +dropdownItems('#','Settings')
+            +dropdownItems('#','Search')
+          

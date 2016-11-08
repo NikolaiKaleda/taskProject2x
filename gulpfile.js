@@ -16,32 +16,31 @@ var gulp = require('gulp'),
     reload = browserSync.reload;
     
  
-// чтобы запустить эту задачу, наберите в командной строке gulp jade/./
 gulp.task('jade', function() {
     return gulp.src('src/*.jade')
         .pipe(jade({pretty: true}))
-        .pipe(gulp.dest('dist/')); // указываем gulp куда положить скомпилированные HTML файлы
+        .pipe(gulp.dest('dist/'));
 });
 
 
 
 
 var path = {
-    dist: { //Тут мы укажем куда складывать готовые после сборки файлы
+    dist: {
         //html: 'dist/',
         js: 'dist/js/',
         css: 'dist/css/',
         img: 'dist/img/',
         fonts: 'dist/fonts/'
     },
-    src: { //Пути откуда брать исходники
-        //html: 'src/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
-        js: 'src/js/main.js',//В стилях и скриптах нам понадобятся только main файлы
+    src: {
+        //html: 'src/*.html',
+        js: 'src/js/main.js',
         style: 'src/style/main.scss',
-        img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
+        img: 'src/img/**/*.*',
         fonts: 'src/fonts/**/*.*'
     },
-    watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
+    watch: {
         //html: 'src/**/*.html',
         js: 'src/js/**/*.js',
         style: 'src/style/**/*.scss',
@@ -64,45 +63,45 @@ var config = {
 
 
 /*gulp.task('html:dist', function () {
-    gulp.src(path.src.html) //Выберем файлы по нужному пути
-        .pipe(rigger()) //Прогоним через rigger
-        .pipe(gulp.dest(path.dist.html)) //Выплюнем их в папку dist
-        .pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
+    gulp.src(path.src.html)
+        .pipe(rigger())
+        .pipe(gulp.dest(path.dist.html))
+        .pipe(reload({stream: true}));
 });*/
 
 
 gulp.task('js:dist', function () {
-    gulp.src(path.src.js) //Найдем наш main файл
-        .pipe(rigger()) //Прогоним через rigger
-        .pipe(sourcemaps.init()) //Инициализируем sourcemap
-        .pipe(uglify()) //Сожмем наш js
-        .pipe(sourcemaps.write()) //Пропишем карты
-        .pipe(gulp.dest(path.dist.js)) //Выплюнем готовый файл в build
-        .pipe(reload({stream: true})); //И перезагрузим сервер
+    gulp.src(path.src.js)
+        .pipe(rigger())
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(path.dist.js))
+        .pipe(reload({stream: true}));
 });
 
 
 gulp.task('style:dist', function () {
-    gulp.src(path.src.style) //Выберем наш main.scss
-        .pipe(sourcemaps.init()) //То же самое что и с js
-        .pipe(sass()) //Скомпилируем
-        .pipe(prefixer()) //Добавим вендорные префиксы
-        .pipe(cssmin()) //Сожмем
+    gulp.src(path.src.style)
+        .pipe(sourcemaps.init())
+        .pipe(sass())
+        .pipe(prefixer())
+        .pipe(cssmin())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path.dist.css)) //И в build
+        .pipe(gulp.dest(path.dist.css))
         .pipe(reload({stream: true}));
 });
 
 
 gulp.task('image:dist', function () {
-    gulp.src(path.src.img) //Выберем наши картинки
-        .pipe(imagemin({ //Сожмем их
+    gulp.src(path.src.img)
+        .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()],
             interlaced: true
         }))
-        .pipe(gulp.dest(path.dist.img)) //И бросим в build
+        .pipe(gulp.dest(path.dist.img))
         .pipe(reload({stream: true}));
 });
 
