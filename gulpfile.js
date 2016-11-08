@@ -114,12 +114,12 @@ gulp.task('fonts:dist', function() {
 
 
 gulp.task('dist', [
-    'html:dist',
+    //'html:dist',
     'js:dist',
     'style:dist',
     'fonts:dist',
     'image:dist',
-    'jade:dist'
+    //'jade:dist'
 ]);
 
 
@@ -139,9 +139,9 @@ gulp.task('watch', function(){
     watch([path.watch.fonts], function(event, cb) {
         gulp.start('fonts:dist');
     });
-    watch([path.watch.jade], function(event, cb) {
+    /*watch([path.watch.jade], function(event, cb) {
         gulp.start('jade:dist');
-    });
+    });*/
 });
 
 

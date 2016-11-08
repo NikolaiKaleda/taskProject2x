@@ -2,10 +2,25 @@ extends template/doctype
 block title
     title Test task
 block style
-    +styles('main.css')
+    +styles('css/main.css')
 block script
-    +scripts('main.js')
-    
+    +scripts('js/main.js')
 block content
-    h1 this page
-    p klsahnlkesahgelhnselhelkhnlhk dsgvsg
+
+    include include/sidebar
+    block userInfo
+    block projItem
+    block projItem2
+    block projItem3
+
+    main.content
+        include include/tasks
+        block taskItem1
+        block taskItem2
+        block taskItem3
+        block taskItem4
+        block taskItem5
+        block taskItem6
+        block taskItem7
+        
+        include include/floating

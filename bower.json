@@ -1,11 +1,12 @@
 {
   "name": "taskProject2x",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "authors": [
     "Nikolai Kaleda"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://github.com/NikolaiKaleda/taskProject2x",
   "ignore": [
     "**/.*",

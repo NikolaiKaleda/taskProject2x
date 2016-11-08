@@ -1,0 +1,52 @@
+section.tasks
+    .taskItem
+        p.taskDate Today
+        .taskLink
+            
+            block taskItem
+                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Create a company')
+
+    .taskItem
+        p.taskDate Tomorrow
+        .taskLink
+        
+            block taskItem1
+                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Call in barber shop')
+    
+    .taskItem
+        p.taskDate Friday (09.06.2016)
+        .taskLink
+        
+            block taskItem2
+                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Call in barber shop')
+                
+            hr.taskSeparator
+            
+            block taskItem3
+                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Call in barber shop')
+
+    .taskItem
+        p.taskDate Saturday (10.06.2016)
+        .taskLink
+        
+            block taskItem4
+                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Buy gifts')
+    
+    .taskItem
+        p.taskDate Sunday (11.06.2016)
+        .taskLink
+        
+            block taskItem5
+                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Brush teeth')
+
+    .taskItem
+        p.taskDate Monday (12.06.2016)
+        .taskLink
+        
+            block taskItem6
+                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Buy a plane tickets')
+
+            hr.taskSeparator
+            
+            block taskItem7
+                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Fly away to the Thailand')

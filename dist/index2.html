@@ -1,16 +1,15 @@
-
-<DOCTYPE>html</DOCTYPE>
+<!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="yandex-verification" content="fa3ba2180b2676ad"/>
-    <meta name="wmail-verification" content="d8f78279232e323b1677d2da0ee48922"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="yandex-verification" content="fa3ba2180b2676ad">
+    <meta name="wmail-verification" content="d8f78279232e323b1677d2da0ee48922">
     <!--The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags-->
     <title>Test task</title>
     <!--CSS-->
-    <link rel="stylesheet" href="main.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
     <!--HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
     <!--WARNING: Respond.js doesn't work if you view the page via file://-->
     <!--[if lt IE 9]-->
@@ -20,12 +19,96 @@
     <!--jQuery (necessary for Bootstrap's JavaScript plugins)-->
     <!--script src="js/jquery.js" type="text/javascript"-->
     <!--Java sqript-->
-    <script type="text/javascript" src="file"></script>
+    <script type="text/javascript" src="js/main.js"></script>
     <!--script src="js/jquery.scrollify.js" type="text/javascript"-->
-    
   </head>
   <body>
-    <h1>this page</h1>
-    <p>klsahnlkesahgelhnselhelkhnlhk dsgvsg</p>
+    <section class="sidebar">
+      <div class="userInfo">
+        <div class="userImgContainer"><img src="img/homePage/sideBar/user.png" alt="User" class="userImg">
+              <p class="userName">Trevor Reyes</p>
+        </div>
+      </div>
+      <div class="projects">
+        <ul class="projectsList">   
+          <li class="projectItem addNewProject"><a href="#" class="addProjectLink">
+              <p>Projects</p><i class="icons8-plus"> </i></a></li>
+              <li class="projectItem"><a href="#" class="active">
+                  <p class="itemMenuName">Private</p>
+                  <p class="itemMenuNumber">8</p></a></li>
+              <li class="projectItem"><a href="#" class="notactive">
+                  <p class="itemMenuName">Decode</p>
+                  <p class="itemMenuNumber">25</p></a></li>
+              <li class="projectItem"><a href="#" class="notactive">
+                  <p class="itemMenuName">Family</p>
+                  <p class="itemMenuNumber">3</p></a></li>
+              <li class="projectItem"><a href="#" class="notactive">
+                  <p class="itemMenuName">Cookle</p>
+                  <p class="itemMenuNumber">13</p></a></li>
+        </ul>
+      </div>
+      <div class="logOut"><a href="#">Log out</a></div>
+    </section>
+    <main class="content">
+      <section class="tasks">
+        <div class="taskItem">
+          <p class="taskDate">Today</p>
+          <div class="taskLink"><a href="#" class="taskBtn">
+                  <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                    <p class="taskText">Create a company</p>
+                  </div></a>
+          </div>
+        </div>
+        <div class="taskItem">
+          <p class="taskDate">Tomorrow</p>
+          <div class="taskLink"><a href="#" class="taskBtn">
+                  <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                    <p class="taskText">Call in barber shop</p>
+                  </div></a>
+          </div>
+        </div>
+        <div class="taskItem">
+          <p class="taskDate">Friday (09.06.2016)</p>
+          <div class="taskLink"><a href="#" class="taskBtn">
+                  <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                    <p class="taskText">Call in barber shop</p>
+                  </div></a>
+            <hr class="taskSeparator"><a href="#" class="taskBtn">
+                  <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                    <p class="taskText">Call in barber shop</p>
+                  </div></a>
+          </div>
+        </div>
+        <div class="taskItem">
+          <p class="taskDate">Saturday (10.06.2016)</p>
+          <div class="taskLink"><a href="#" class="taskBtn">
+                  <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                    <p class="taskText">Buy gifts</p>
+                  </div></a>
+          </div>
+        </div>
+        <div class="taskItem">
+          <p class="taskDate">Sunday (11.06.2016)</p>
+          <div class="taskLink"><a href="#" class="taskBtn">
+                  <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                    <p class="taskText">Brush teeth</p>
+                  </div></a>
+          </div>
+        </div>
+        <div class="taskItem">
+          <p class="taskDate">Monday (12.06.2016)</p>
+          <div class="taskLink"><a href="#" class="taskBtn">
+                  <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                    <p class="taskText">Buy a plane tickets</p>
+                  </div></a>
+            <hr class="taskSeparator"><a href="#" class="taskBtn">
+                  <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                    <p class="taskText">Fly away to the Thailand</p>
+                  </div></a>
+          </div>
+        </div>
+      </section>
+      <section class="floating"><a href="#" class="floatingBtn"><i class="icons8-plus"></i></a></section>
+    </main>
   </body>
 </html>

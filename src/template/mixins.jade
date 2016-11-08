@@ -1,7 +1,31 @@
 mixin styles(...files)
     each file in files
         link(rel="stylesheet",href=file)
-        
+
 mixin scripts(...files)
     each file in files
-        script(type="text/javascript" src="file")
+        script(type="text/javascript" src=file)
+
+
+- var userList = [{img : 'img/homePage/sideBar/user.png', name: 'Trevor Reyes'}] 
+mixin userInfo(items)
+    each item in items
+        img.userImg(src=item.img alt="User")
+        p.userName #{item.name}
+
+
+mixin menuItems(linkClass,linkhref,paragrafClass,paragrafText,paragraf2Class,paragraf2Text,...liClass)
+    li(class=liClass)
+        a(class=linkClass href=linkhref) #{linkText}
+            p(class=paragrafClass) #{paragrafText}
+            p(class=paragraf2Class) #{paragraf2Text}
+            
+            
+mixin tasksItems(taskLink,imgSrc,imgAlt,paragrafText)
+    a(class='taskBtn' href=taskLink)
+        .checkbox
+            img(src=imgSrc alt=imgAlt)
+            p.taskText #{paragrafText}
+                    
+    
+ 
