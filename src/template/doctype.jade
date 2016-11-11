@@ -1,7 +1,7 @@
 include mixins
 
 doctype html
-html(lang="ru")
+html(lang="ru" ng-app="taskProjectApp")
     head
         meta(charset="utf-8")
         meta(http-equiv="X-UA-Compatible" content="IE=edge")
@@ -19,6 +19,8 @@ html(lang="ru")
         //[if lt IE 9]
         script(src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js")
         script(src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js")
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js")
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js")
         //[endif]
 
         //jQuery (necessary for Bootstrap's JavaScript plugins)
@@ -27,5 +29,8 @@ html(lang="ru")
         block script
         //script src="js/jquery.scrollify.js" type="text/javascript"
 
-    body
-        block content
+    body(ng-controller="TaskProjectCtrl")
+        .pageContainer(ng-style="bgStyle")
+            block content
+    block addProject
+        
