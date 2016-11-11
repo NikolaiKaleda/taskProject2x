@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" ng-app="taskProjectApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,6 +15,8 @@
     <!--[if lt IE 9]-->
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
     <!--[endif]-->
     <!--jQuery (necessary for Bootstrap's JavaScript plugins)-->
     <!--script src="js/jquery.js" type="text/javascript"-->
@@ -22,103 +24,152 @@
     <script type="text/javascript" src="js/main.js"></script>
     <!--script src="js/jquery.scrollify.js" type="text/javascript"-->
   </head>
-  <body>
-    <section class="sidebar">
-      <div class="userInfo">
-        <div class="userImgContainer"><img src="img/homePage/sideBar/user.png" alt="User" class="userImg">
-              <p class="userName">Trevor Reyes</p>
+  <body ng-controller="TaskProjectCtrl">
+    <div ng-style="bgStyle" class="pageContainer">
+      <section class="sidebar">
+        <div class="userInfo">
+          <div class="userImgContainer"><img src="img/homePage/sideBar/user.png" alt="User" class="userImg">
+                  <p class="userName">Trevor Reyes</p>
+          </div>
         </div>
-      </div>
-      <div class="projects">
-        <ul class="projectsList">   
-          <li class="projectItem addNewProject"><a href="#" class="addProjectLink">
-              <p>Projects</p><i class="icons8-plus"> </i></a></li>
-              <li class="projectItem"><a href="#" class="active">
-                  <p class="itemMenuName">Private</p>
-                  <p class="itemMenuNumber">8</p></a></li>
-              <li class="projectItem"><a href="#" class="notactive">
-                  <p class="itemMenuName">Decode</p>
-                  <p class="itemMenuNumber">25</p></a></li>
-              <li class="projectItem"><a href="#" class="notactive">
-                  <p class="itemMenuName">Family</p>
-                  <p class="itemMenuNumber">3</p></a></li>
-              <li class="projectItem"><a href="#" class="notactive">
-                  <p class="itemMenuName">Cookle</p>
-                  <p class="itemMenuNumber">13</p></a></li>
-        </ul>
-      </div>
-      <div class="logOut"><a href="#">Log out</a></div>
-    </section>
-    <main class="content">
-      <section class="topPanel"><a href="#" class="search"><i class="icons8-search"></i></a>
-        <nav><a href="#" title="Menu" class="dropdown-toggle moreBtn"><i class="icons8-more"></i></a>
-          <ul class="dropdown">
-                  <li><a href="#">Menu Item</a></li>
-                  <li><a href="#">Menu</a></li>
-                  <li><a href="#">Settings</a></li>
-                  <li><a href="#">Search</a></li>
+        <div class="projects">
+          <ul class="projectsList">   
+            <li class="projectItem createNewProject"><a href="#" ng-click="openProjectPage()" class="addProjectLink">
+                <p>Projects</p><i class="icons8-plus"> </i></a></li>
+                  <li class="projectItem"><a href="#" class="active">
+                      <p class="itemMenuName">Private</p>
+                      <p class="itemMenuNumber">8</p></a></li>
+                  <li class="projectItem"><a href="#" class="notactive">
+                      <p class="itemMenuName">Decode</p>
+                      <p class="itemMenuNumber">25</p></a></li>
+                  <li class="projectItem"><a href="#" class="notactive">
+                      <p class="itemMenuName">Family</p>
+                      <p class="itemMenuNumber">3</p></a></li>
+                  <li class="projectItem"><a href="#" class="notactive">
+                      <p class="itemMenuName">Cookle</p>
+                      <p class="itemMenuNumber">13</p></a></li>
           </ul>
-        </nav>
+        </div>
+        <div class="logOut"><a href="#">Log out</a></div>
       </section>
-      <section class="tasks">
-        <div class="taskItem">
-          <p class="taskDate">Today</p>
-          <div class="taskLink"><a href="#" class="taskBtn">
-                    <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
-                      <p class="taskText">Create a company</p>
-                    </div></a>
+      <main class="content">
+        <section class="topPanel"><a href="#" class="search"><i class="icons8-search"></i></a>
+          <nav><a href="#" title="Menu" class="dropdown-toggle moreBtn"><i class="icons8-more"></i></a>
+            <ul class="dropdown">
+                      <li><a href="#">Menu Item</a></li>
+                      <li><a href="#">Menu</a></li>
+                      <li><a href="#">Settings</a></li>
+                      <li><a href="#">Search</a></li>
+            </ul>
+          </nav>
+        </section>
+        <section class="tasks">
+          <div class="taskItem">
+            <p class="taskDate">Today</p>
+            <div class="taskLink"><a href="#" class="taskBtn">
+                        <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                          <p class="taskText">Create a company</p>
+                        </div></a>
+            </div>
           </div>
-        </div>
-        <div class="taskItem">
-          <p class="taskDate">Tomorrow</p>
-          <div class="taskLink"><a href="#" class="taskBtn">
-                    <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
-                      <p class="taskText">Call in barber shop</p>
-                    </div></a>
+          <div class="taskItem">
+            <p class="taskDate">Tomorrow</p>
+            <div class="taskLink"><a href="#" class="taskBtn">
+                        <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                          <p class="taskText">Call in barber shop</p>
+                        </div></a>
+            </div>
           </div>
-        </div>
-        <div class="taskItem">
-          <p class="taskDate">Friday (09.06.2016)</p>
-          <div class="taskLink"><a href="#" class="taskBtn">
-                    <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
-                      <p class="taskText">Call in barber shop</p>
-                    </div></a>
-            <hr class="taskSeparator"><a href="#" class="taskBtn">
-                    <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
-                      <p class="taskText">Call in barber shop</p>
-                    </div></a>
+          <div class="taskItem">
+            <p class="taskDate">Friday (09.06.2016)</p>
+            <div class="taskLink"><a href="#" class="taskBtn">
+                        <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                          <p class="taskText">Call in barber shop</p>
+                        </div></a>
+              <hr class="taskSeparator"><a href="#" class="taskBtn">
+                        <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                          <p class="taskText">Call in barber shop</p>
+                        </div></a>
+            </div>
           </div>
-        </div>
-        <div class="taskItem">
-          <p class="taskDate">Saturday (10.06.2016)</p>
-          <div class="taskLink"><a href="#" class="taskBtn">
-                    <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
-                      <p class="taskText">Buy gifts</p>
-                    </div></a>
+          <div class="taskItem">
+            <p class="taskDate">Saturday (10.06.2016)</p>
+            <div class="taskLink"><a href="#" class="taskBtn">
+                        <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                          <p class="taskText">Buy gifts</p>
+                        </div></a>
+            </div>
           </div>
-        </div>
-        <div class="taskItem">
-          <p class="taskDate">Sunday (11.06.2016)</p>
-          <div class="taskLink"><a href="#" class="taskBtn">
-                    <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
-                      <p class="taskText">Brush teeth</p>
-                    </div></a>
+          <div class="taskItem">
+            <p class="taskDate">Sunday (11.06.2016)</p>
+            <div class="taskLink"><a href="#" class="taskBtn">
+                        <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                          <p class="taskText">Brush teeth</p>
+                        </div></a>
+            </div>
           </div>
-        </div>
-        <div class="taskItem">
-          <p class="taskDate">Monday (12.06.2016)</p>
-          <div class="taskLink"><a href="#" class="taskBtn">
-                    <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
-                      <p class="taskText">Buy a plane tickets</p>
-                    </div></a>
-            <hr class="taskSeparator"><a href="#" class="taskBtn">
-                    <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
-                      <p class="taskText">Fly away to the Thailand</p>
-                    </div></a>
+          <div class="taskItem">
+            <p class="taskDate">Monday (12.06.2016)</p>
+            <div class="taskLink"><a href="#" class="taskBtn">
+                        <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                          <p class="taskText">Buy a plane tickets</p>
+                        </div></a>
+              <hr class="taskSeparator"><a href="#" class="taskBtn">
+                        <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check">
+                          <p class="taskText">Fly away to the Thailand</p>
+                        </div></a>
+            </div>
           </div>
-        </div>
-      </section>
-      <section class="floating"><a href="#" class="floatingBtn"><i class="icons8-plus"></i></a></section>
-    </main>
+        </section>
+        <section class="floating"><a href="#" class="floatingBtn"><i class="icons8-plus"></i></a></section>
+      </main>
+    </div>
   </body>
+  <section ng-show="showBlockProjects" class="addProject">
+    <div class="addProjectTitle"><a href="#" ng-click="closeProjectPage()" class="addProjectClose">
+        <div class="addProjectCloseBtn"><i class="icons8-more"></i>
+          <p>ESC</p>
+        </div></a>
+      <p>Create new project</p>
+    </div>
+    <div class="addProjectNameContainer">
+      <input type="text" placeholder="Project name" class="inputProjectName" ng-model="project">
+    </div>
+    <!--<div class="submitProjectBtn">-->
+    <a href="#" class="submitProjectBtn" ng-click="addProject()"><div class="submitBtn"><i class="icons8-checkmark"></i></div></a><!--</div>-->
+  </section>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
