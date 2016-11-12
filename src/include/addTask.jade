@@ -8,9 +8,9 @@ section.addTask(ng-show="showBlockTask")
                 p ESC
         p Create new task
     .addTaskNameContainer
-        input.inputTaskName(type="text" placeholder="Task name" ng-model="taskName")
+        input.inputTaskName(type="text" placeholder="Task name" ng-model="taskNameAdd")
     .addTaskNameContainer
-      input.inputTaskName(type="text" placeholder="Description" ng-model="taskDescription")
+      input.inputTaskName(type="text" placeholder="Description" ng-model="taskDescriptionAdd")
     a.submitTaskBtn(href="#" ng-click="addTask()")
-    .submitBtn
-        i.icons8-checkmark
+        .submitBtn
+            i.icons8-checkmark

@@ -1,4 +1,4 @@
- var taskProjectApp = angular.module('taskProjectApp', ['ngCookies']);
+var taskProjectApp = angular.module('taskProjectApp', ['ngCookies']);
 
 
 
@@ -6,6 +6,7 @@
 taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', function ($scope, $http,$cookies) {
     $scope.showBlockProjects = false;
     $scope.showBlockTask = false;
+    var sessionCookies = $cookies.get('session');
     //$scope.userAvatar;
     //$scope.userName;
     
@@ -76,10 +77,19 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
         var returnCookie;
         $http({
               method: 'POST',
-              url: 'https://api-test-task.decodeapps.io/tasks/task',
-              data: { session:sessionCookies, Project.id:projectId, Task.title:taskTitle, Task.description:taskDescription }
+              url: 'https://api-test-task.decodeapps.io/tasks/task?'+'session='+sessionCookies+'&Project.id='+projectId+'&Task.title='+taskTitle+'&Task.description='+taskDescription
+              /*data: {
+                "session": sessionCookies,
+                "Project": {
+                    "id": projectId
+                },
+                "Task": {
+                    "title": taskTitle,
+                    "description": taskDescription
+                }
+              }*/
             }).then(function successCallback(response) {
-            console.log(response);
+                console.log(response);
                 //$cookies.put('session', response.data.session);
                 //returnCookie = response.data.session;
               }, function errorCallback(response) {
@@ -118,8 +128,6 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-        
-        
     }
     
     
@@ -130,7 +138,7 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     }
     
     $scope.addTask = function () {
-        
+        createTask(sessionCookies, $scope.activeProject, $scope.taskNameAdd, $scope.taskDescriptionAdd);
     }
     
     

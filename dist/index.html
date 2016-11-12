@@ -121,11 +121,10 @@
             <p class="bgTextTask">Have a good day</p>
           </div>
         </section>
-        <section class="floating"><a href="#" class="floatingBtn" ng-click="openTaskPage()"><i class="icons8-plus"></i></a></section>
+        <section ng-click="openTaskPage()" class="floating"><a href="#" ng-click="addTask()" class="floatingBtn"><i class="icons8-plus"></i></a></section>
       </main>
     </div>
   </body>
-  
   <section ng-show="showBlockProjects" class="addProject">
     <div class="addProjectTitle"><a href="#" ng-click="closeProjectPage()" class="addProjectClose">
         <div class="addProjectCloseBtn"><i class="icons8-more"></i>
@@ -138,7 +137,6 @@
     </div><a href="#" ng-click="addProject()" class="submitProjectBtn">
       <div class="submitBtn"><i class="icons8-checkmark"></i></div></a>
   </section>
-  
   <section ng-show="showBlockTask" class="addTask">
     <div class="addTaskTitle"><a href="#" ng-click="closeTaskPage()" class="addTaskClose">
         <div class="addTaskCloseBtn"><i class="icons8-more"></i>
@@ -147,13 +145,11 @@
       <p>Create new task</p>
     </div>
     <div class="addTaskNameContainer">
-      <input type="text" placeholder="Task name" ng-model="taskName" class="inputTaskName">
+      <input type="text" placeholder="Task name" ng-model="taskNameAdd" class="inputTaskName">
     </div>
     <div class="addTaskNameContainer">
-      <input type="text" placeholder="Description" ng-model="taskDescription" class="inputTaskName">
-    </div>
-     <a href="#" ng-click="addTask()" class="submitTaskBtn">
+      <input type="text" placeholder="Description" ng-model="taskDescriptionAdd" class="inputTaskName">
+    </div><a href="#" ng-click="addTask()" class="submitTaskBtn">
       <div class="submitBtn"><i class="icons8-checkmark"></i></div></a>
   </section>
-  
 </html>
