@@ -10,11 +10,16 @@ mixin scripts(...files)
 - var userList = [{img : 'img/homePage/sideBar/user.png', name: 'Trevor Reyes'}] 
 mixin userInfo(items)
     each item in items
-        img.userImg(src=item.img alt="User")
-        p.userName #{item.name}
+        img.userImg(src=item.img alt="User" ng-src="{{userAvatar}}")
+        p.userName(ng-bind="name") #{item.name}
 
 
-mixin menuItems(linkClass,linkhref,paragrafClass,paragrafText,paragraf2Class,paragraf2Text,...liClass)
+mixin menuItems()
+    li.projectItem(ng-repeat="model in projects track by model.Project.id")
+        a(href="#" ng-class="activeClass(model.Project.id)" ng-click="openTasks(model.Project.id)")
+            p.itemMenuName {{model.Project.title}}
+            p.itemMenuNumber {{model.Project.task_count}}
+            
     li(class=liClass)
         a(class=linkClass href=linkhref) #{linkText}
             p(class=paragrafClass) #{paragrafText}

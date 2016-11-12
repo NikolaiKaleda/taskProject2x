@@ -1,4 +1,4 @@
-section.tasks
+section.tasks(ng-if="tasksCount != 0")
     .taskItem
         p.taskDate Today
         .taskLink
@@ -50,3 +50,8 @@ section.tasks
             
             block taskItem7
                 +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Fly away to the Thailand')
+
+section.noTasks(ng-if="tasksCount == 0")
+    .bgImgTasks
+        i.icons8-todo-list
+        p.bgTextTask Have a good day

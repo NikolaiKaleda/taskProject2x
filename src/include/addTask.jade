@@ -1,0 +1,16 @@
+include ../template/mixins
+
+section.addTask(ng-show="showBlockTask")
+    .addTaskTitle
+        a.addTaskClose(href="#" ng-click="closeTaskPage()")
+            .addTaskCloseBtn
+                i.icons8-more
+                p ESC
+        p Create new task
+    .addTaskNameContainer
+        input.inputTaskName(type="text" placeholder="Task name" ng-model="taskName")
+    .addTaskNameContainer
+      input.inputTaskName(type="text" placeholder="Description" ng-model="taskDescription")
+    a.submitTaskBtn(href="#" ng-click="addTask()")
+    .submitBtn
+        i.icons8-checkmark

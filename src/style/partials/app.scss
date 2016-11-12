@@ -14,6 +14,17 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: sfuiMedium;
+    src: url(partials/fonts/SFUIText-Medium.otf);
+    src: local('☺'),
+    	url('../fonts/SFUIText-Medium.eot?') format('embedded-opentype'),
+        url('../fonts/SFUIText-Medium.woff') format('woff'),
+        url('../fonts/SFUIText-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 //----- End fonts -----
 
 
@@ -142,6 +153,7 @@ body {
         }
         .content {
             overflow: auto;
+            background-color: $notasksBg;
             .topPanel {
                 border-bottom: 1px solid #bdbdbd;
                 padding-top: 0.9em;
@@ -242,6 +254,19 @@ body {
                     }
                 }
             }
+            .noTasks {
+                text-align: center;
+                .bgImgTasks{
+                    height: 100vh;
+                    i {
+                        font-size: 10em;
+                        color: $fontColor4;
+                    }
+                    .bgTextTask {
+                        @include input-font($mediumFont, 1.4em, $fontColor4, 0, normal);
+                    }
+                }
+            }
             .floating {
                 float: right;
                 margin-right: 2em;
@@ -291,7 +316,7 @@ body {
             .addProjectClose:hover {
                 color: $hoverBg;
             }
-            }
+        }
         .addProjectNameContainer {
             margin: 0 auto;
             width: 22.8em;
@@ -307,6 +332,71 @@ body {
             }
         }
         .submitProjectBtn {
+            position: absolute;
+            bottom: 5em;
+            right: 5em;
+            text-decoration: none;
+            color: $fontColor;
+            .submitBtn {
+                background-color: $hoverBg;
+                width: 3.33em;
+                position: absolute;
+                height: 3.33em;
+                text-align: center;
+                line-height: 3.33em;
+                border-radius: 1.665em;
+                i {
+                    font-size: 1.5em;
+                }
+            }
+        }
+    }
+    .addTask {
+        @include input-font($semiboldFont, 1em, $fontColor, 0, normal);
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 33.33%;
+        background-color: $sideBarBg;
+        .addTaskTitle {
+            text-align: center;
+            margin-top: 2.13em;
+            margin-bottom: 2.8em;
+            .addTaskClose {
+                position: absolute;
+                text-decoration: none;
+                left: 1em;
+                color: $fontColor;
+                .addTaskCloseBtn {
+                    i {
+                        width: 1.06em;
+                    }
+                    p {
+                        font-size: 0.6em;
+                        margin: 0;
+                    }
+                }
+            }
+            .addTaskClose:hover {
+                color: $hoverBg;
+            }
+        }
+        .addTaskNameContainer {
+            margin: 0 auto 2em auto;
+            width: 22.8em;
+            .inputTaskName {
+                @include input-font($semiboldFont, 0.8em, $fontColor, 0, normal);
+                width: 100%;
+                background-color: rgba(1,1,1,0);
+                border: 0;
+                border-bottom: 2px solid #ccc;
+            }
+            .inputTaskName:focus {
+                outline: none;
+            }
+        }
+        .submitTaskBtn {
             position: absolute;
             bottom: 5em;
             right: 5em;

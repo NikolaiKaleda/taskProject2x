@@ -21,6 +21,7 @@ html(lang="ru" ng-app="taskProjectApp")
         script(src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js")
         script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js")
         script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js")
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js")
         //[endif]
 
         //jQuery (necessary for Bootstrap's JavaScript plugins)
@@ -29,7 +30,7 @@ html(lang="ru" ng-app="taskProjectApp")
         block script
         //script src="js/jquery.scrollify.js" type="text/javascript"
 
-    body(ng-controller="TaskProjectCtrl")
+    body(ng-controller="TaskProjectCtrl" ng-init="init()")
         .pageContainer(ng-style="bgStyle")
             block content
     block addProject
