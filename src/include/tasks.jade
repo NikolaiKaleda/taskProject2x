@@ -1,45 +1,12 @@
 section.tasks(ng-if="tasksCount != 0")
-    .taskItem
-        p.taskDate Today
-        .taskLink
-            
-            block taskItem
-                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Create a company')
-
-    .taskItem
-        p.taskDate Tomorrow
-        .taskLink
-        
-            block taskItem1
-                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Call in barber shop')
-    
-    .taskItem
-        p.taskDate Friday (09.06.2016)
-        .taskLink
-        
-            block taskItem2
-                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Call in barber shop')
-                
-            hr.taskSeparator
-            
-            block taskItem3
-                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Call in barber shop')
-
-    .taskItem
-        p.taskDate Saturday (10.06.2016)
-        .taskLink
-        
-            block taskItem4
-                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Buy gifts')
-    
-    .taskItem
-        p.taskDate Sunday (11.06.2016)
-        .taskLink
-        
-            block taskItem5
-                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Brush teeth')
-
-    .taskItem
+    .taskItem(ng-repeat="model in tasks track by model.Task.id")
+            p.taskDate Today
+            .taskLink
+                a.taskBtn(href="#")
+                    .checkbox
+                        img(src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)")
+                        p.taskText {{model[0].Task.title}}
+    //.taskItem
         p.taskDate Monday (12.06.2016)
         .taskLink
         

@@ -33,7 +33,7 @@ mixin tasksItems(taskLink,imgSrc,imgAlt,paragrafText)
             p.taskText #{paragrafText}
 
 
-mixin dropdownItems(linkHref,linkText)
+mixin dropdownItems(linkHref,linkText,funcName)
     li
-        a(href=linkHref) #{linkText}
+        a(href=linkHref ng-click="funcName()") #{linkText}
         

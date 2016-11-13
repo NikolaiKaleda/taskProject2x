@@ -36,7 +36,6 @@ body {
     margin: 0;
     padding: 0;
 	background-color: white;
-	width: 100%;
 }
 ul, li {
 	list-style: none;	
@@ -60,6 +59,7 @@ body {
     font-size: 15px;
     display: table;
     background-color: $darkBg;
+    min-height: 38em;
     .pageContainer {
         display: table-row;
         background-color: $fontColor;
@@ -67,11 +67,12 @@ body {
             position: relative;
             display: table-cell;
             width: 22.8em;
+                min-height: 40em;
             height: 100%;
             background-color: $sideBarBg;
             .userInfo {
                 .userImgContainer {
-                    padding: 1.3em 0 0 2.67em;
+                    padding-left: 2.67em;
                     margin-bottom: 1.7em;
                     .userName {
                         @include input-font($semiboldFont, 1em, $fontColor, 0, normal);
@@ -152,9 +153,28 @@ body {
             }
         }
         .content {
+            height: 100%;
             overflow: auto;
             background-color: $notasksBg;
+            padding-top: 1.3em;
             .topPanel {
+                .searchBlock {
+                    margin: 0;
+                    display: inline-block;
+                    input {
+                        border: 0;
+                        border-bottom: 1px solid $hoverBg;
+                        background: none;
+                    }
+                    button {
+                        background: none;
+                        border: 0;
+                        cursor: pointer;
+                        i {
+                            color: $hoverBg;
+                        }
+                    }
+                }
                 border-bottom: 1px solid #bdbdbd;
                 padding-top: 0.9em;
                 padding-bottom: 0.9em;
@@ -257,7 +277,9 @@ body {
             .noTasks {
                 text-align: center;
                 .bgImgTasks{
+                    display: inline-block;
                     height: 100vh;
+                    margin-top: 9em;
                     i {
                         font-size: 10em;
                         color: $fontColor4;
@@ -413,6 +435,23 @@ body {
                 i {
                     font-size: 1.5em;
                 }
+            }
+        }
+    }
+    .preloader {
+        display: none;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        text-align: center;
+        background-color: #fff;
+        height: 100%;
+        div {
+            top: 35%;
+            left: 47%;
+            position: absolute;
+            p {
+                @include input-font($semiboldFont, 2em, $hoverBg, 0, normal);
             }
         }
     }
