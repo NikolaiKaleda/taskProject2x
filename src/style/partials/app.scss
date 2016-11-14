@@ -334,12 +334,29 @@ body {
                         margin: 0;
                     }
                     .taskPageTitle {
-                        
+                        .taskDescription {
+                        }
                     }
                 }
             }
             .addProjectClose:hover {
                 color: $hoverBg;
+            }
+            .manageTask {
+                position: absolute;
+                display: inline-block;
+                float: right;
+                right: 1em;
+                .editTask {
+                    color: #51555e;
+                }
+                .deleteTask {
+                    margin-left: 1.7em;
+                    color: #51555e;
+                }
+                .editTask:hover, .deleteTask:hover {
+                    color: #fff;
+                }
             }
         }
         .addProjectNameContainer, .addEditProjectNameContainer {
@@ -356,11 +373,13 @@ body {
                 outline: none;
             }
         }
-        //.addTaskPageDescription {
-        //    .taskDescription {
-        //        
-    //        }
-      //  }
+        .addTaskPageDescription {
+            @include input-font($mediumFont, 1.3em, $fontColor, 0, normal);
+            .taskDescription {
+                @include input-font($mediumFont, 0.7em, $fontColor, 0, normal);
+                margin: 0 5.26em;
+            }
+        }
         .submitProjectBtn, .submitEditProjectBtn {
             position: absolute;
             bottom: 5em;

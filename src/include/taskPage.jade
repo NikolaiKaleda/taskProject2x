@@ -6,6 +6,11 @@ section.taskPage(ng-show="showTaskBlock")
             .addTaskPageCloseBtn
                 i.icons8-more
                 p ESC
-        p.taskPageTitle {{model.Task.title}}
+        .manageTask
+            a.editTask(href="#" ng-click="editTask(taskId, taskName, taskDescription)")
+                i.icons8-edit
+            a.deleteTask(href="#" ng-click="deleteTask(taskId)")
+                i.icons8-delete
+        p.taskPageTitle(ng-bind="taskName")
     .addTaskPageDescription
-        p.taskDescription {{model.Task.description}}
+        p.taskDescription(ng-bind="taskDescription")
