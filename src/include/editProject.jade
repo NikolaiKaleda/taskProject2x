@@ -1,0 +1,17 @@
+include ../template/mixins
+
+section.addEditProject(ng-show="showBlockEditProjects")
+        .addEditProjectTitle
+            a.addEditProjectClose(href="#" ng-click="closeEditProjectPage()")
+                .addEditProjectCloseBtn
+                    i.icons8-more
+                    p ESC
+            p(ng-bind="getProjectPageTitle()")
+        .addEditProjectNameContainer
+            input.inputEditProjectName(type="text" placeholder="New name for project" ng-model="projectEdit")
+        a.submitEditProjectBtn(href="#" ng-click="updateProject()")
+            .submitEditBtn(ng-click="closeTaskPage()")
+                i.icons8-checkmark
+    
+    
+    

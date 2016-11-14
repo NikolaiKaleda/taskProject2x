@@ -2,7 +2,7 @@ include ../template/mixins
 
 section.topPanel
 
-    p
+    p.searchBlock
         button(type="submit" ng-click="search()")
             i.icons8-search
         input(type="search" name="q" placeholder="search" ng-model="searchKeyword")
@@ -12,6 +12,6 @@ section.topPanel
             i.icons8-more
         ul.dropdown
             block dropdown
-            +dropdownItems('#','Edit project', 'updateTask')
-            +dropdownItems('#','Delete project', 'deleteTask')
+            +dropdownItems('#','Edit project', 'openEditProjectPage')
+            +dropdownItems('#','Delete project', 'deleteProject')
           

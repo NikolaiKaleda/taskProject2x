@@ -308,7 +308,7 @@ body {
             }
         }
     }
-    .addProject {
+    .addProject, .addEditProject, .taskPage {
         @include input-font($semiboldFont, 1em, $fontColor, 0, normal);
         position: fixed;
         top: 0;
@@ -316,16 +316,16 @@ body {
         height: 100%;
         width: 33.33%;
         background-color: $sideBarBg;
-        .addProjectTitle {
+        .addProjectTitle, .addEditProjectTitle, .taskPageTitleBlock {
             text-align: center;
             margin-top: 2.13em;
             margin-bottom: 2.8em;
-            .addProjectClose {
+            .addProjectClose, .addEditProjectClose, .taskPageClose {
                 position: absolute;
                 text-decoration: none;
                 left: 1em;
                 color: $fontColor;
-                .addProjectCloseBtn {
+                .addProjectCloseBtn, .addEditProjectCloseBtn, .addTaskPageCloseBtn {
                     i {
                         width: 1.06em;
                     }
@@ -333,16 +333,19 @@ body {
                         font-size: 0.6em;
                         margin: 0;
                     }
+                    .taskPageTitle {
+                        
+                    }
                 }
             }
             .addProjectClose:hover {
                 color: $hoverBg;
             }
         }
-        .addProjectNameContainer {
+        .addProjectNameContainer, .addEditProjectNameContainer {
             margin: 0 auto;
             width: 22.8em;
-            .inputProjectName {
+            .inputProjectName, .inputEditProjectName {
                 @include input-font($semiboldFont, 0.8em, $fontColor, 0, normal);
                 width: 100%;
                 background-color: rgba(1,1,1,0);
@@ -353,13 +356,18 @@ body {
                 outline: none;
             }
         }
-        .submitProjectBtn {
+        //.addTaskPageDescription {
+        //    .taskDescription {
+        //        
+    //        }
+      //  }
+        .submitProjectBtn, .submitEditProjectBtn {
             position: absolute;
             bottom: 5em;
             right: 5em;
             text-decoration: none;
             color: $fontColor;
-            .submitBtn {
+            .submitBtn, .submitEditBtn {
                 background-color: $hoverBg;
                 width: 3.33em;
                 position: absolute;

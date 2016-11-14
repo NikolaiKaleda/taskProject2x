@@ -6,12 +6,13 @@ section.addProject(ng-show="showBlockProjects")
                 .addProjectCloseBtn
                     i.icons8-more
                     p ESC
-            p Create new project
+            p(ng-bind="getProjectPageTitle()")
         .addProjectNameContainer
             input.inputProjectName(type="text" placeholder="Project name" ng-model="project")
         a.submitProjectBtn(href="#" ng-click="addProject()")
-            .submitBtn
+            .submitBtn(ng-click="closeAddProjectPage")
                 i.icons8-checkmark
     
     
     
+//ng-click="isEdit ? editProject() : createProject()"

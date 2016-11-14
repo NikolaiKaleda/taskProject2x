@@ -16,7 +16,7 @@ mixin userInfo(items)
 
 mixin menuItems()
     li.projectItem(ng-repeat="model in projects track by model.Project.id")
-        a(href="#" ng-class="activeClass(model.Project.id)" ng-click="openTasks(model.Project.id)")
+        a(href="#" ng-class="activeClass(model.Project.id)" ng-click="openTasks(model.Project.id, model.Project.title)")
             p.itemMenuName {{model.Project.title}}
             p.itemMenuNumber {{model.Project.task_count}}
             
@@ -35,5 +35,5 @@ mixin tasksItems(taskLink,imgSrc,imgAlt,paragrafText)
 
 mixin dropdownItems(linkHref,linkText,funcName)
     li
-        a(href=linkHref ng-click="funcName()") #{linkText}
+        a(href=linkHref ng-click=funcName+"()") #{linkText}
         

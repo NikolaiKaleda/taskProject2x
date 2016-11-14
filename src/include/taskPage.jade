@@ -1,0 +1,11 @@
+include ../template/mixins
+
+section.taskPage(ng-show="showTaskBlock")
+    .taskPageTitleBlock
+        a.taskPageClose(href="#" ng-click="closePageTask()")
+            .addTaskPageCloseBtn
+                i.icons8-more
+                p ESC
+        p.taskPageTitle {{model.Task.title}}
+    .addTaskPageDescription
+        p.taskDescription {{model.Task.description}}
