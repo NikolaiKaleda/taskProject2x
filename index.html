@@ -67,7 +67,7 @@
             <p class="taskDate">Today</p>
             <div class="taskLink"><a href="#" class="taskBtn">
                 <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)">
-                  <p ng-click="openTask(model.Task.title, model.Task.description)" class="taskText">{{model.Task.title}}</p>
+                  <p ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)" class="taskText">{{model.Task.title}}</p>
                 </div></a></div>
           </div>
           <!--.taskItem
@@ -100,7 +100,7 @@
         <div class="addProjectCloseBtn"><i class="icons8-more"></i>
           <p>ESC</p>
         </div></a>
-      <p ng-model="getProjectPageTitle()"></p>
+      <p ng-bind="getProjectPageTitle()"></p>
     </div>
     <div class="addProjectNameContainer">
       <input type="text" placeholder="Project name" ng-model="project" class="inputProjectName">
@@ -113,14 +113,16 @@
         <div class="addTaskCloseBtn"><i class="icons8-more"></i>
           <p>ESC</p>
         </div></a>
-      <p>Create new task</p>
+      <p ng-if="isTaskEdit">Edit task</p>
+      <p ng-if="!isTaskEdit">Create new task</p>
     </div>
     <div class="addTaskNameContainer">
       <input type="text" placeholder="Task name" ng-model="taskNameAdd" class="inputTaskName">
     </div>
     <div class="addTaskNameContainer">
       <input type="text" placeholder="Description" ng-model="taskDescriptionAdd" class="inputTaskName">
-    </div><a href="#" ng-click="addTask()" class="submitTaskBtn">
+    </div><a href="#" ng-click="addTask()" ng-if="!isTaskEdit" class="submitTaskBtn">
+      <div ng-click="closeTaskPage()" class="submitBtn"><i class="icons8-checkmark"></i></div></a><a href="#" ng-click="UpdateTask()" ng-if="isTaskEdit" class="submitTaskBtn">
       <div ng-click="closeTaskPage()" class="submitBtn"><i class="icons8-checkmark"></i></div></a>
   </section>
   <section ng-show="showBlockEditProjects" class="addEditProject">
@@ -140,10 +142,11 @@
         <div class="addTaskPageCloseBtn"><i class="icons8-more"></i>
           <p>ESC</p>
         </div></a>
-      <p class="taskPageTitle">{{model.Task.title}}</p>
+      <div class="manageTask"><a href="#" ng-click="editTask(taskId, taskName, taskDescription)" class="editTask"><i class="icons8-edit"></i></a><a href="#" ng-click="deleteTask(taskId)" class="deleteTask"><i class="icons8-delete"></i></a></div>
+      <p ng-bind="taskName" class="taskPageTitle"></p>
     </div>
     <div class="addTaskPageDescription">
-      <p class="taskDescription">{{model.Task.description}}</p>
+      <p ng-bind="taskDescription" class="taskDescription"></p>
     </div>
   </section>
   <section ng-style="preloader" class="preloader">
