@@ -6,12 +6,14 @@ section.addTask(ng-show="showBlockTask")
             .addTaskCloseBtn
                 i.icons8-more
                 p ESC
+                
         p(ng-if="isTaskEdit") Edit task
         p(ng-if="!isTaskEdit") Create new task
     .addTaskNameContainer
+    
         input.inputTaskName(type="text" placeholder="Task name" ng-model="taskNameAdd")
     .addTaskNameContainer
-      input.inputTaskName(type="text" placeholder="Description" ng-model="taskDescriptionAdd")
+        input.inputTaskName(type="text" placeholder="Description" ng-model="taskDescriptionAdd")
       
     a.submitTaskBtn(href="#" ng-click="addTask()" ng-if="!isTaskEdit")
         .submitBtn(ng-click="closeTaskPage()")

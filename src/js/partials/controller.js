@@ -1,17 +1,15 @@
-var taskProjectApp = angular.module('taskProjectApp', ['ngCookies']);
+var taskProjectApp = angular.module ('taskProjectApp', ['ngCookies']);
 
 
-taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', function ($scope, $http,$cookies) {
+taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', function ($scope, $http,$cookies) {
     $scope.showBlockProjects = false;
     $scope.showBlockTask = false;
     $scope.showBlockEditProjects = false;
     $scope.showBlockTask = false;
     $scope.isProjectEdit = false;
     $scope.isTaskEdit = false;
-    var sessionCookies = $cookies.get('session'),
+    var sessionCookies = $cookies.get ('session'),
         activeProjectName;
-    //$scope.userAvatar;
-    //$scope.userName;
     
     $scope.activeClass = function (id) {
         return id === $scope.activeProject ? 'active' : '';
@@ -20,16 +18,16 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     
     getSession  = function () {
         var returnCookie;
-        $http({
-              method: 'POST',
-              url: 'https://api-test-task.decodeapps.io/signup'
-            }).then(function successCallback(response) {
-                $cookies.put('session', response.data.session);
-                returnCookie = response.data.session;
-              }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
+        $http ({
+            method: 'POST',
+            url: 'https://api-test-task.decodeapps.io/signup'
+        }).then (function successCallback(response) {
+            $cookies.put ('session', response.data.session);
+            returnCookie = response.data.session;
+        }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
         return returnCookie;
     };
     
@@ -38,8 +36,7 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
         $http({
             method: 'GET',
             url: 'https://api-test-task.decodeapps.io/account?session='+sessionCookies,
-        }).then(function successCallback(response) {
-            console.log(response);
+        }).then (function successCallback(response) {
             $scope.userAvatar = response.data.Account.image_url;
             $scope.name = response.data.Account.username;
         }, function errorCallback(response) {
@@ -53,17 +50,13 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
         $http ({
             method: 'GET',
             url: 'https://api-test-task.decodeapps.io/projects?session=' + sessionCookies,
-        }).then(function successCallback(response) {
+        }).then (function successCallback(response) {
             $scope.projects = response.data.projects;
-            if(!activeProjectSelected) {
+            if (!activeProjectSelected) {
                 $scope.activeProject = response.data.projects[0].Project.id;
                 $scope.projectTitle = response.data.projects[0].Project.title;
-                console.log('active project');
-                console.log($scope.activeProject);
-                console.log(response);
             }
-            getTasks(sessionCookies, $scope.activeProject, 20, 20, null);
-            //$scope.preloader = {display: 'none'};
+            getTasks (sessionCookies, $scope.activeProject, 20, 20, null);
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
@@ -71,8 +64,8 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     };
     
     
-    createProject = function(sessionCookies, projectTitle) {
-        $http({
+    createProject = function (sessionCookies, projectTitle) {
+        $http ({
             method: 'POST',
             url: 'https://api-test-task.decodeapps.io/projects/project',
             data: {
@@ -81,15 +74,13 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
                     "title": projectTitle
                 }
             }
-        }).then(function successCallback(response) {
-        console.log('createProject');
-        console.log(response);
-        if(response.status=200)
-            {
-                getProjects(sessionCookies, true);
-                $scope.closeProjectPage();
-                $scope.activeProject = response.data.Project.id;
-                $scope.projectTitle = projectTitle;
+        }).then (function successCallback(response) {
+        if (response.status=200) {
+            getProjects (sessionCookies, true);
+            $scope.closeProjectPage();
+            $scope.activeProject = response.data.Project.id;
+            $scope.projectTitle = projectTitle;
+            $scope.closeEditProjectPage();
             }
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
@@ -99,7 +90,7 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     
     
     editProject = function (sessionCookies, projectId, projectTitle) {
-        $http({
+        $http ({
             method: 'POST',
             url: 'https://api-test-task.decodeapps.io/projects/project',
             data: {
@@ -109,14 +100,13 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
                     "title": projectTitle
                 }
             }
-        }).then(function successCallback(response) {
-            console.log('editProject');
-            console.log(response);
-            if(response.statusText="OK") {
+        }).then (function successCallback(response) {
+            if(response.statusText = "OK") {
                 getProjects (sessionCookies,false)
                 $scope.closeEditProjectPage();
                 $scope.activeProject = response.data.Project.id;
                 activeProjectName = response.data.Project.title;
+                //$scope.isProjectEdit = true;
             }
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
@@ -126,16 +116,14 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     
     
     deleteThisProject = function (sessionCookies, projectId) {
-        $http({
+        $http ({
             method: 'DELETE',
             url: 'https://api-test-task.decodeapps.io/projects/project?'+'session='+sessionCookies+'&project_id='+projectId,
         })
-        .then(function successCallback(response) {
-            if(response.status=200) {
-                getProjects (sessionCookies,false)
+        .then (function successCallback(response) {
+            if (response.status = 200) {
+                getProjects (sessionCookies, false)
             }
-            console.log('deleteThisProject');
-            console.log(response);
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
@@ -145,14 +133,13 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     
     getTasks = function (sessionCookies, projectId, pagingSize, pagingOffset, conditionKeywords) {
         var url='https://api-test-task.decodeapps.io/tasks?session='+sessionCookies+'&project_id='+projectId+'&paging_size='+pagingSize+'&paging_offset='+pagingOffset;
-        if(conditionKeywords!=null) {
-            url = url +"&condition_keywords="+conditionKeywords;
+        if (conditionKeywords!=null) {
+            url = url + "&condition_keywords=" + conditionKeywords;
         }
-        $http({
+        $http ({
             method: 'GET',
             url: url,
-        }).then(function successCallback(response) {
-            console.log(response);
+        }).then (function successCallback(response) {
             $scope.tasks = response.data.tasks;
             $scope.tasksCount = response.data.tasks.length;
             $scope.preloader = {display: 'none'};
@@ -164,7 +151,7 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     
     
     compliteTask = function (sessionCookies, taskId) {
-        $http({
+        $http ({
             method: 'POST',
             url: 'https://api-test-task.decodeapps.io/tasks/task/complite',
             data: {
@@ -173,12 +160,10 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
                     "id": taskId,
                 }
             }
-        }).then(function successCallback(response) {
-        console.log('compliteTask');
-        console.log(response);
-        if(response.status=200)
+        }).then (function successCallback(response) {
+        if (response.status=200)
             {
-                getTasks(sessionCookies, $scope.activeProject, 20, 20, null)
+                getTasks (sessionCookies, $scope.activeProject, 20, 20, null)
             }
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
@@ -188,7 +173,7 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     
     
     createTask = function (sessionCookies, projectId, taskTitle, taskDescription) {
-        $http({
+        $http ({
             method: 'POST',
             url: 'https://api-test-task.decodeapps.io/tasks/task',
             data: {
@@ -201,11 +186,8 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
                     "description": taskDescription
                 }
             }
-        }).then(function successCallback(response) {
-            console.log('Create tesk');
-            console.log(response);
-            if(response.status=201) {
-                //getProjects(sessionCookies, true);
+        }).then (function successCallback(response) {
+            if (response.status = 201) {
                 var task = {
                     "Task": {
                         "id": response.data.Task.id,
@@ -216,10 +198,10 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
                 $scope.tasks.push(task);
                 $scope.tasksCount = $scope.tasks.length;
                 angular.forEach($scope.projects, function(value, key) {
-                  if(value.Project.id == $scope.activeProject)
-                    value.Project.task_count ++;
-                 });               
-                //getProjects(sessionCookies, true);
+                    if (value.Project.id == $scope.activeProject) {
+                        value.Project.task_count ++;
+                    }
+                });               
             }
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
@@ -229,7 +211,7 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     
     
     editThisTask = function (sessionCookies, taskId, taskTitle, taskDescription) {
-        $http({
+        $http ({
             method: 'POST',
             url: 'https://api-test-task.decodeapps.io/tasks/task',
             data: {
@@ -240,10 +222,8 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
                     "description" : taskDescription
                 }
             }
-        }).then(function successCallback(response) {
-            console.log('editTask');
-            console.log(response);
-            if(response.status=200) {
+        }).then (function successCallback(response) {
+            if (response.status = 200) {
                 //getTasks(sessionCookies, $scope.activeProject, 20, 20, null)
                 $scope.taskId = taskId;
                 $scope.taskName = taskTitle;
@@ -251,12 +231,10 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
                 $scope.showTaskBlock = true;
                 $scope.showBlockTask = false;
                 angular.forEach($scope.tasks, function(value, key) {
-                  if(value.Task.id == taskId)
-                    value.Task.title = taskTitle;
-                 });    
-                //$scope.closeEditProjectPage();
-               // $scope.activeProject = response.data.Project.id;
-                //activeProjectName = response.data.Project.title;
+                    if(value.Task.id == taskId) {
+                        value.Task.title = taskTitle;
+                    }
+                });    
             }
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
@@ -266,14 +244,14 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     
     
     deleteThisTask = function (sessionCookies, taskId) {
-        $http({
+        $http ({
             method: 'DELETE',
             url: 'https://api-test-task.decodeapps.io/tasks/task?'+'session='+sessionCookies+'&task_id='+taskId,
         })
         .then(function successCallback(response) {
-            if(response.status=200) {
+            if (response.status = 200) {
                 $scope.closePageTask();
-                getProjects(sessionCookies, true);
+                getProjects (sessionCookies, true);
             }
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
@@ -284,9 +262,8 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     
     
     $scope.search = function () {
-        console.log($scope.searchKeyword);
         if ($scope.searchKeyword != null) {
-            getTasks(sessionCookies, $scope.activeProject, 20, 20, $scope.searchKeyword);
+            getTasks (sessionCookies, $scope.activeProject, 20, 20, $scope.searchKeyword);
         }
     }
 
@@ -296,23 +273,21 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     $scope.init = function () {
         var sessionCookies = $cookies.get('session');
         if (sessionCookies == undefined) {
-            getSession();
+            getSession ();
         } 
         $scope.preloader = {display: 'block'};
         $http({
-              method: 'GET',
-              url: 'https://api-test-task.decodeapps.io/session?session='+sessionCookies,
-             // data: { session: sessionCookies }
-        }).then(function successCallback(response) {
-            //console.log(response);
-            if(response.statusText=="OK"){
-                getUser(sessionCookies);
-                getProjects(sessionCookies, false);
+            method: 'GET',
+            url: 'https://api-test-task.decodeapps.io/session?session='+sessionCookies,
+        }).then (function successCallback(response) {
+            if (response.statusText == "OK"){
+                getUser (sessionCookies);
+                getProjects (sessionCookies, false);
             }
             else{
                 var newSessionCookies = getSession();
-                getUser(newSessionCookies);
-                getProjects(sessionCookies, false);
+                getUser (newSessionCookies);
+                getProjects (sessionCookies, false);
             }
               }, function errorCallback(response) {
                 // called asynchronously if an error occurs
@@ -322,30 +297,30 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     
     
     $scope.addProject = function () {
-        createProject(sessionCookies, $scope.project);
+        createProject (sessionCookies, $scope.projectEdit);
     }
     
     $scope.openTasks = function (elemId, elemTitle) {
         var sessionCookies = $cookies.get('session');
         $scope.activeProject = elemId;
         $scope.projectTitle = elemTitle;
-        getTasks(sessionCookies, $scope.activeProject, 20, 20, null);
+        getTasks (sessionCookies, $scope.activeProject, 20, 20, null);
     }
     
     $scope.addTask = function () {
-        createTask(sessionCookies, $scope.activeProject, $scope.taskNameAdd, $scope.taskDescriptionAdd);
+        createTask (sessionCookies, $scope.activeProject, $scope.taskNameAdd, $scope.taskDescriptionAdd);
     }
     
     $scope.compliteTask = function (taskId) {
-        compliteTask(sessionCookies, taskId);
+        compliteTask (sessionCookies, taskId);
     }
     
     $scope.updateProject = function () {
-        editProject(sessionCookies, $scope.activeProject, $scope.projectEdit);
+        editProject (sessionCookies, $scope.activeProject, $scope.projectEdit);
     }
     
     $scope.deleteProject = function () {
-        deleteThisProject(sessionCookies, $scope.activeProject);
+        deleteThisProject (sessionCookies, $scope.activeProject);
     }
     
     $scope.openTask = function (id, title, description) {
@@ -354,7 +329,6 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
         $scope.taskId = id;
         $scope.taskName = title;
         $scope.taskDescription = description;
-        
     }
     
     $scope.editTask = function (id, title, description) {
@@ -369,18 +343,16 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
     }
     
     $scope.UpdateTask = function () {
-        editThisTask(sessionCookies, $scope.taskIdEdit, $scope.taskNameAdd, $scope.taskDescriptionAdd);
+        editThisTask (sessionCookies, $scope.taskIdEdit, $scope.taskNameAdd, $scope.taskDescriptionAdd);
     }
     
     $scope.deleteTask = function (id) {
-        deleteThisTask(sessionCookies, id);
+        deleteThisTask (sessionCookies, id);
     }
-    
-    
     
     $scope.openProjectPage = function () {
         $scope.isProjectEdit = false;
-        $scope.showBlockProjects = true;
+        $scope.showBlockEditProjects = true;
         $scope.bgStyle = {opacity: '0.8'};
     }
     $scope.closeProjectPage = function () {
@@ -398,23 +370,16 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
         $scope.bgStyle = {opacity: '1'};
     }
     
-    
     $scope.openEditProjectPage = function () {
         $scope.isProjectEdit = true;
-        //$scope.projectTitle = function (title) {
-        //    $scope.projectEdit = title;
-        //}
         $scope.projectEdit = $scope.projectTitle;
-        //$scope.projectEdit = activeProjectName;
         $scope.showBlockEditProjects = true;
         $scope.bgStyle = {opacity: '0.8'};
-        console.log($scope.isProjectEdit);
     }
     $scope.closeEditProjectPage = function () {
         $scope.showBlockEditProjects = false;
         $scope.bgStyle = {opacity: '1'};
     }
-    
     
     $scope.getProjectPageTitle = function () {
         if($scope.isProjectEdit) {
@@ -423,7 +388,6 @@ taskProjectApp.controller('TaskProjectCtrl', ['$scope', '$http', '$cookies', fun
             return 'Create project';
         }
     }
-    
     
     $scope.closePageTask = function () {
         $scope.showTaskBlock = false;

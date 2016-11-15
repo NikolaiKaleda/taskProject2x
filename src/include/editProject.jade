@@ -9,7 +9,13 @@ section.addEditProject(ng-show="showBlockEditProjects")
             p(ng-bind="getProjectPageTitle()")
         .addEditProjectNameContainer
             input.inputEditProjectName(type="text" placeholder="New name for project" ng-model="projectEdit")
-        a.submitEditProjectBtn(href="#" ng-click="updateProject()")
+            
+        
+        a.submitEditProjectBtn(href="#" ng-click="addProject()" ng-if="!isProjectEdit")
+            .submitEditBtn(ng-click="closeTaskPage()")
+                i.icons8-checkmark
+                
+        a.submitEditProjectBtn(href="#" ng-click="updateProject()" ng-if="isProjectEdit")
             .submitEditBtn(ng-click="closeTaskPage()")
                 i.icons8-checkmark
     

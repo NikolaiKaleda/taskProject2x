@@ -118,7 +118,6 @@ gulp.task('dist', [
     'style:dist',
     'fonts:dist',
     'image:dist',
-    //'jade:dist'
 ]);
 
 
@@ -138,9 +137,6 @@ gulp.task('watch', function(){
     watch([path.watch.fonts], function(event, cb) {
         gulp.start('fonts:dist');
     });
-    /*watch([path.watch.jade], function(event, cb) {
-        gulp.start('jade:dist');
-    });*/
 });
 
 

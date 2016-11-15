@@ -5,7 +5,8 @@ section.tasks(ng-if="tasksCount != 0")
                 a.taskBtn(href="#")
                     .checkbox
                         img(src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)")
-                        p.taskText(ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)") {{model.Task.title}}
+                    .titleTask(ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)")
+                        p.taskText {{model.Task.title}}
     //.taskItem
         p.taskDate Monday (12.06.2016)
         .taskLink
