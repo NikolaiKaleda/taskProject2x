@@ -47,8 +47,6 @@
         </div>
         <div class="logOut"><a href="#">Log out</a></div>
       </section>
-      <!--block projItem2-->
-      <!--block projItem3-->
       <main class="content">
         <section class="topPanel">
           <p class="searchBlock">
@@ -66,8 +64,9 @@
           <div ng-repeat="model in tasks track by model.Task.id" class="taskItem">
             <p class="taskDate">Today</p>
             <div class="taskLink"><a href="#" class="taskBtn">
-                <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)">
-                  <p ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)" class="taskText">{{model.Task.title}}</p>
+                <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)"></div>
+                <div ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)" class="titleTask">
+                  <p class="taskText">{{model.Task.title}}</p>
                 </div></a></div>
           </div>
           <!--.taskItem
@@ -89,25 +88,10 @@
             <p class="bgTextTask">Have a good day</p>
           </div>
         </section>
-        <!--block taskItem-->
-        <!--block taskItem2-->
         <section class="floating"><a href="#" ng-click="openTaskPage()" class="floatingBtn"><i class="icons8-plus"></i></a></section>
       </main>
     </div>
   </body>
-  <section ng-show="showBlockProjects" class="addProject">
-    <div class="addProjectTitle"><a href="#" ng-click="closeProjectPage()" class="addProjectClose">
-        <div class="addProjectCloseBtn"><i class="icons8-more"></i>
-          <p>ESC</p>
-        </div></a>
-      <p ng-bind="getProjectPageTitle()"></p>
-    </div>
-    <div class="addProjectNameContainer">
-      <input type="text" placeholder="Project name" ng-model="project" class="inputProjectName">
-    </div><a href="#" ng-click="addProject()" class="submitProjectBtn">
-      <div ng-click="closeAddProjectPage" class="submitBtn"><i class="icons8-checkmark"></i></div></a>
-  </section>
-  <!--ng-click="isEdit ? editProject() : createProject()"-->
   <section ng-show="showBlockTask" class="addTask">
     <div class="addTaskTitle"><a href="#" ng-click="closeTaskPage()" class="addTaskClose">
         <div class="addTaskCloseBtn"><i class="icons8-more"></i>
@@ -134,7 +118,8 @@
     </div>
     <div class="addEditProjectNameContainer">
       <input type="text" placeholder="New name for project" ng-model="projectEdit" class="inputEditProjectName">
-    </div><a href="#" ng-click="updateProject()" class="submitEditProjectBtn">
+    </div><a href="#" ng-click="addProject()" ng-if="!isProjectEdit" class="submitEditProjectBtn">
+      <div ng-click="closeTaskPage()" class="submitEditBtn"><i class="icons8-checkmark"></i></div></a><a href="#" ng-click="updateProject()" ng-if="isProjectEdit" class="submitEditProjectBtn">
       <div ng-click="closeTaskPage()" class="submitEditBtn"><i class="icons8-checkmark"></i></div></a>
   </section>
   <section ng-show="showTaskBlock" class="taskPage">
