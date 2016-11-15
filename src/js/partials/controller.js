@@ -102,10 +102,10 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
             }
         }).then (function successCallback(response) {
             if(response.statusText = "OK") {
-                getProjects (sessionCookies,false)
+                getProjects (sessionCookies,true);
                 $scope.closeEditProjectPage();
                 $scope.activeProject = response.data.Project.id;
-                activeProjectName = response.data.Project.title;
+                $scope.activeProjectName = response.data.Project.title;
                 //$scope.isProjectEdit = true;
             }
         }, function errorCallback(response) {
@@ -164,6 +164,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
         if (response.status=200)
             {
                 getTasks (sessionCookies, $scope.activeProject, 20, 20, null)
+                getProjects (sessionCookies,true);
             }
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
@@ -260,15 +261,12 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
     }
    
     
-    
     $scope.search = function () {
         if ($scope.searchKeyword != null) {
             getTasks (sessionCookies, $scope.activeProject, 20, 20, $scope.searchKeyword);
         }
     }
 
-    
-    
     
     $scope.init = function () {
         var sessionCookies = $cookies.get('session');
@@ -289,32 +287,17 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
                 getUser (newSessionCookies);
                 getProjects (sessionCookies, false);
             }
-              }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
+        }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
     }
     
     
     $scope.addProject = function () {
         createProject (sessionCookies, $scope.projectEdit);
     }
-    
-    $scope.openTasks = function (elemId, elemTitle) {
-        var sessionCookies = $cookies.get('session');
-        $scope.activeProject = elemId;
-        $scope.projectTitle = elemTitle;
-        getTasks (sessionCookies, $scope.activeProject, 20, 20, null);
-    }
-    
-    $scope.addTask = function () {
-        createTask (sessionCookies, $scope.activeProject, $scope.taskNameAdd, $scope.taskDescriptionAdd);
-    }
-    
-    $scope.compliteTask = function (taskId) {
-        compliteTask (sessionCookies, taskId);
-    }
-    
+
     $scope.updateProject = function () {
         editProject (sessionCookies, $scope.activeProject, $scope.projectEdit);
     }
@@ -346,8 +329,23 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
         editThisTask (sessionCookies, $scope.taskIdEdit, $scope.taskNameAdd, $scope.taskDescriptionAdd);
     }
     
+    $scope.compliteTask = function (taskId) {
+        compliteTask (sessionCookies, taskId);
+    }
+    
     $scope.deleteTask = function (id) {
         deleteThisTask (sessionCookies, id);
+    }
+    
+    $scope.openTasks = function (elemId, elemTitle) {
+        var sessionCookies = $cookies.get('session');
+        $scope.activeProject = elemId;
+        $scope.projectTitle = elemTitle;
+        getTasks (sessionCookies, $scope.activeProject, 20, 20, null);
+    }
+    
+    $scope.addTask = function () {
+        createTask (sessionCookies, $scope.activeProject, $scope.taskNameAdd, $scope.taskDescriptionAdd);
     }
     
     $scope.openProjectPage = function () {
@@ -357,6 +355,23 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
     }
     $scope.closeProjectPage = function () {
         $scope.showBlockProjects = false;
+        $scope.bgStyle = {opacity: '1'};
+    }
+    $scope.getProjectPageTitle = function () {
+        if($scope.isProjectEdit) {
+            return 'Edit project';
+        } else {
+            return 'Create project';
+        }
+    }
+    $scope.openEditProjectPage = function () {
+        $scope.isProjectEdit = true;
+        $scope.projectEdit = $scope.projectTitle;
+        $scope.showBlockEditProjects = true;
+        $scope.bgStyle = {opacity: '0.8'};
+    }
+    $scope.closeEditProjectPage = function () {
+        $scope.showBlockEditProjects = false;
         $scope.bgStyle = {opacity: '1'};
     }
     
@@ -369,32 +384,10 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
         $scope.showBlockTask = false;
         $scope.bgStyle = {opacity: '1'};
     }
-    
-    $scope.openEditProjectPage = function () {
-        $scope.isProjectEdit = true;
-        $scope.projectEdit = $scope.projectTitle;
-        $scope.showBlockEditProjects = true;
-        $scope.bgStyle = {opacity: '0.8'};
-    }
-    $scope.closeEditProjectPage = function () {
-        $scope.showBlockEditProjects = false;
-        $scope.bgStyle = {opacity: '1'};
-    }
-    
-    $scope.getProjectPageTitle = function () {
-        if($scope.isProjectEdit) {
-            return 'Edit project';
-        } else {
-            return 'Create project';
-        }
-    }
-    
     $scope.closePageTask = function () {
         $scope.showTaskBlock = false;
         $scope.bgStyle = {opacity: '1'};
     }
-    
-    
     
 }]);
 

@@ -59,21 +59,22 @@ body {
     font-size: 15px;
     display: table;
     background-color: $darkBg;
-    min-height: 38em;
+    min-height: 45em;
     .pageContainer {
         display: table-row;
         background-color: $fontColor;
             .sidebar {
             position: relative;
             display: table-cell;
-            width: 22.8em;
-                min-height: 40em;
+            width: 21.7em;
+            min-height: 40em;
             height: 100%;
             background-color: $sideBarBg;
             .userInfo {
                 .userImgContainer {
                     padding-left: 2.67em;
                     margin-bottom: 1.7em;
+                    margin-top: 1.3em;
                     .userName {
                         @include input-font($semiboldFont, 1em, $fontColor, 0, normal);
                         margin-left: 1em;
@@ -82,7 +83,7 @@ body {
                     .userImg {
                         display: inline-block;
                         vertical-align: middle;
-                        width: 4em;
+                        width: 3.6em;
                     }
                 }
             }
@@ -93,7 +94,7 @@ body {
                     .createNewProject {
                         .addProjectLink {
                             p, i {
-                                @include input-font($semiboldFont, 0.9em, $fontColor2, 0, normal);
+                                @include input-font($semiboldFont, 0.8em, $fontColor2, 0, normal);
                                 margin: 1.1em 0;
                             }
                             i {
@@ -103,7 +104,7 @@ body {
                     }
                     .projectItem {
                         a {
-                            width: 17.8em;
+                            width: 16.8em;
                             display: block;
                             text-decoration: none;
                             border-radius: 0.33em;
@@ -153,6 +154,7 @@ body {
             }
         }
         .content {
+            position: relative;
             height: 100%;
             overflow: auto;
             background-color: $notasksBg;
@@ -303,8 +305,9 @@ body {
             }
             .floating {
                 float: right;
-                margin-right: 2em;
-                margin-bottom: 2em;
+                position: absolute;
+                right: 2em;
+                bottom: 2em;
                 .floatingBtn {
                     font-size: 1.13em;
                     display: block;
@@ -504,7 +507,7 @@ body {
         height: 100%;
         div {
             top: 35%;
-            left: 47%;
+            left: 46%;
             position: absolute;
             p {
                 @include input-font($semiboldFont, 2em, $hoverBg, 0, normal);

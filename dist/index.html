@@ -1,142 +1,201 @@
 <!DOCTYPE html>
 <html lang="ru" ng-app="taskProjectApp">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="yandex-verification" content="fa3ba2180b2676ad">
-    <meta name="wmail-verification" content="d8f78279232e323b1677d2da0ee48922">
-    <!--The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags-->
-    <title>Test task</title>
-    <!--CSS-->
-    <link rel="stylesheet" href="css/main.css"/>
-    <!--HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
-    <!--WARNING: Respond.js doesn't work if you view the page via file://-->
-    <!--[if lt IE 9]-->
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
-    <!--[endif]-->
-    <!--jQuery (necessary for Bootstrap's JavaScript plugins)-->
-    <!--script src="js/jquery.js" type="text/javascript"-->
-    <!--Java sqript-->
-    <script type="text/javascript" src="js/main.js"></script>
-    <!--script src="js/jquery.scrollify.js" type="text/javascript"-->
-  </head>
-  <body ng-controller="TaskProjectCtrl" ng-init="init()">
-    <div ng-style="bgStyle" class="pageContainer">
-      <section class="sidebar">
-        <div class="userInfo">
-          <div class="userImgContainer"><img src="img/homePage/sideBar/user.png" alt="User" ng-src="{{userAvatar}}" class="userImg">
-                  <p ng-bind="name" class="userName">Trevor Reyes</p>
-          </div>
-        </div>
-        <div class="projects">
-          <ul class="projectsList">   
-            <li class="projectItem createNewProject"><a href="#" ng-click="openProjectPage()" class="addProjectLink">
-                <p>Projects</p><i class="icons8-plus"> </i></a></li>
-                  <li ng-repeat="model in projects track by model.Project.id" class="projectItem"><a href="#" ng-class="activeClass(model.Project.id)" ng-click="openTasks(model.Project.id, model.Project.title)">
-                      <p class="itemMenuName">{{model.Project.title}}</p>
-                      <p class="itemMenuNumber">{{model.Project.task_count}}</p></a></li>
-                  <li><a>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="yandex-verification" content="fa3ba2180b2676ad">
+        <meta name="wmail-verification" content="d8f78279232e323b1677d2da0ee48922">
+        <!--The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags-->
+        <title>Test task</title>
+        <!--CSS-->
+        <link rel="stylesheet" href="css/main.css"/>
+        <!--HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
+        <!--WARNING: Respond.js doesn't work if you view the page via file://-->
+        <!--[if lt IE 9]-->
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+        <!--[endif]-->
+        <!--jQuery (necessary for Bootstrap's JavaScript plugins)-->
+        <!--script src="js/jquery.js" type="text/javascript"-->
+        <!--Java sqript-->
+        <script type="text/javascript" src="js/main.js"></script>
+        <!--script src="js/jquery.scrollify.js" type="text/javascript"-->
+    </head>
+    <body ng-controller="TaskProjectCtrl" ng-init="init()">
+        <div ng-style="bgStyle" class="pageContainer">
+            <section class="sidebar">
+                <div class="userInfo">
+                    <div class="userImgContainer">
+                        <img src="img/homePage/sideBar/user.png" alt="User" ng-src="{{userAvatar}}" class="userImg">
+                        <p ng-bind="name" class="userName">Trevor Reyes</p>
+                    </div>
+                </div>
+                <div class="projects">
+                    <ul class="projectsList">   
+                        <li class="projectItem createNewProject">
+                            <a href="#" ng-click="openProjectPage()" class="addProjectLink">
+                                <p>Projects</p>
+                                <i class="icons8-plus"> </i>
+                            </a>
+                        </li>
+                        <li ng-repeat="model in projects track by model.Project.id" class="projectItem">
+                            <a href="#" ng-class="activeClass(model.Project.id)" ng-click="openTasks(model.Project.id, model.Project.title)">
+                                <p class="itemMenuName">{{model.Project.title}}</p>
+                                <p class="itemMenuNumber">{{model.Project.task_count}}</p>
+                            </a>
+                        </li>
+                        <li><a>
                       <p></p>
                       <p></p></a></li>
-          </ul>
+                    </ul>
+                </div>
+                <div class="logOut">
+                    <a href="#">Log out</a>
+                </div>
+            </section>
+            <main class="content">
+                <section class="topPanel">
+                    <p class="searchBlock">
+                        <button type="submit" ng-click="search()">
+                            <i class="icons8-search"></i>
+                        </button>
+                        <input type="search" name="q" placeholder="search" ng-model="searchKeyword">
+                    </p>
+                    <nav>
+                        <a href="#" title="Menu" class="dropdown-toggle moreBtn">
+                            <i class="icons8-more"></i>
+                        </a>
+                        <ul class="dropdown">
+                            <li>
+                                <a href="#" ng-click="openEditProjectPage()">Edit project</a>
+                            </li>
+                            <li>
+                                <a href="#" ng-click="deleteProject()">Delete project</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </section>
+                <section ng-if="tasksCount != 0" class="tasks">
+                    <div ng-repeat="model in tasks track by model.Task.id" class="taskItem">
+                        <p class="taskDate">Today</p>
+                        <div class="taskLink">
+                            <a href="#" class="taskBtn">
+                                <div class="checkbox">
+                                    <img src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)">
+                                </div>
+                                <div ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)" class="titleTask">
+                                    <p class="taskText">{{model.Task.title}}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                  <!--.taskItem
+                  p.taskDate Monday (12.06.2016)
+                  .taskLink
+
+                      block taskItem6
+                          +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Buy a plane tickets')
+
+                      hr.taskSeparator
+
+                      block taskItem7
+                          +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Fly away to the Thailand')
+
+                  -->
+                </section>
+                <section ng-if="tasksCount == 0" class="noTasks">
+                    <div class="bgImgTasks">
+                        <i class="icons8-todo-list"></i>
+                        <p class="bgTextTask">Have a good day</p>
+                    </div>
+                </section>
+                <section class="floating">
+                    <a href="#" ng-click="openTaskPage()" class="floatingBtn">
+                        <i class="icons8-plus"></i>
+                    </a>
+                </section>
+            </main>
         </div>
-        <div class="logOut"><a href="#">Log out</a></div>
-      </section>
-      <main class="content">
-        <section class="topPanel">
-          <p class="searchBlock">
-            <button type="submit" ng-click="search()"><i class="icons8-search"></i></button>
-            <input type="search" name="q" placeholder="search" ng-model="searchKeyword">
-          </p>
-          <nav><a href="#" title="Menu" class="dropdown-toggle moreBtn"><i class="icons8-more"></i></a>
-            <ul class="dropdown">
-                      <li><a href="#" ng-click="openEditProjectPage()">Edit project</a></li>
-                      <li><a href="#" ng-click="deleteProject()">Delete project</a></li>
-            </ul>
-          </nav>
-        </section>
-        <section ng-if="tasksCount != 0" class="tasks">
-          <div ng-repeat="model in tasks track by model.Task.id" class="taskItem">
-            <p class="taskDate">Today</p>
-            <div class="taskLink"><a href="#" class="taskBtn">
-                <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)"></div>
-                <div ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)" class="titleTask">
-                  <p class="taskText">{{model.Task.title}}</p>
-                </div></a></div>
-          </div>
-          <!--.taskItem
-          p.taskDate Monday (12.06.2016)
-          .taskLink
-          
-              block taskItem6
-                  +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Buy a plane tickets')
-          
-              hr.taskSeparator
-              
-              block taskItem7
-                  +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Fly away to the Thailand')
-          
-          -->
-        </section>
-        <section ng-if="tasksCount == 0" class="noTasks">
-          <div class="bgImgTasks"><i class="icons8-todo-list"></i>
-            <p class="bgTextTask">Have a good day</p>
-          </div>
-        </section>
-        <section class="floating"><a href="#" ng-click="openTaskPage()" class="floatingBtn"><i class="icons8-plus"></i></a></section>
-      </main>
-    </div>
-  </body>
-  <section ng-show="showBlockTask" class="addTask">
-    <div class="addTaskTitle"><a href="#" ng-click="closeTaskPage()" class="addTaskClose">
-        <div class="addTaskCloseBtn"><i class="icons8-more"></i>
-          <p>ESC</p>
-        </div></a>
-      <p ng-if="isTaskEdit">Edit task</p>
-      <p ng-if="!isTaskEdit">Create new task</p>
-    </div>
-    <div class="addTaskNameContainer">
-      <input type="text" placeholder="Task name" ng-model="taskNameAdd" class="inputTaskName">
-    </div>
-    <div class="addTaskNameContainer">
-      <input type="text" placeholder="Description" ng-model="taskDescriptionAdd" class="inputTaskName">
-    </div><a href="#" ng-click="addTask()" ng-if="!isTaskEdit" class="submitTaskBtn">
-      <div ng-click="closeTaskPage()" class="submitBtn"><i class="icons8-checkmark"></i></div></a><a href="#" ng-click="UpdateTask()" ng-if="isTaskEdit" class="submitTaskBtn">
-      <div ng-click="closeTaskPage()" class="submitBtn"><i class="icons8-checkmark"></i></div></a>
-  </section>
-  <section ng-show="showBlockEditProjects" class="addEditProject">
-    <div class="addEditProjectTitle"><a href="#" ng-click="closeEditProjectPage()" class="addEditProjectClose">
-        <div class="addEditProjectCloseBtn"><i class="icons8-more"></i>
-          <p>ESC</p>
-        </div></a>
-      <p ng-bind="getProjectPageTitle()"></p>
-    </div>
-    <div class="addEditProjectNameContainer">
-      <input type="text" placeholder="New name for project" ng-model="projectEdit" class="inputEditProjectName">
-    </div><a href="#" ng-click="addProject()" ng-if="!isProjectEdit" class="submitEditProjectBtn">
-      <div ng-click="closeTaskPage()" class="submitEditBtn"><i class="icons8-checkmark"></i></div></a><a href="#" ng-click="updateProject()" ng-if="isProjectEdit" class="submitEditProjectBtn">
-      <div ng-click="closeTaskPage()" class="submitEditBtn"><i class="icons8-checkmark"></i></div></a>
-  </section>
-  <section ng-show="showTaskBlock" class="taskPage">
-    <div class="taskPageTitleBlock"><a href="#" ng-click="closePageTask()" class="taskPageClose">
-        <div class="addTaskPageCloseBtn"><i class="icons8-more"></i>
-          <p>ESC</p>
-        </div></a>
-      <div class="manageTask"><a href="#" ng-click="editTask(taskId, taskName, taskDescription)" class="editTask"><i class="icons8-edit"></i></a><a href="#" ng-click="deleteTask(taskId)" class="deleteTask"><i class="icons8-delete"></i></a></div>
-      <p ng-bind="taskName" class="taskPageTitle"></p>
-    </div>
-    <div class="addTaskPageDescription">
-      <p ng-bind="taskDescription" class="taskDescription"></p>
-    </div>
-  </section>
-  <section ng-style="preloader" class="preloader">
-    <div>
-      <p>Loading ...</p><img src="img/homePage/preloader.gif" alt="Preloader">
-    </div>
-  </section>
+    </body>
+    <section ng-show="showBlockTask" class="addTask">
+        <div class="addTaskTitle">
+            <a href="#" ng-click="closeTaskPage()" class="addTaskClose">
+                <div class="addTaskCloseBtn">
+                    <i class="icons8-more"></i>
+                    <p>ESC</p>
+                </div>
+            </a>
+            <p ng-if="isTaskEdit">Edit task</p>
+            <p ng-if="!isTaskEdit">Create new task</p>
+        </div>
+        <div class="addTaskNameContainer">
+            <input type="text" placeholder="Task name" ng-model="taskNameAdd" class="inputTaskName">
+        </div>
+        <div class="addTaskNameContainer">
+            <input type="text" placeholder="Description" ng-model="taskDescriptionAdd" class="inputTaskName">
+        </div>
+        <a href="#" ng-click="addTask()" ng-if="!isTaskEdit" class="submitTaskBtn">
+            <div ng-click="closeTaskPage()" class="submitBtn">
+                <i class="icons8-checkmark"></i>
+            </div>
+        </a>
+        <a href="#" ng-click="UpdateTask()" ng-if="isTaskEdit" class="submitTaskBtn">
+            <div ng-click="closeTaskPage()" class="submitBtn">
+                <i class="icons8-checkmark"></i>
+            </div>
+        </a>
+    </section>
+    <section ng-show="showBlockEditProjects" class="addEditProject">
+        <div class="addEditProjectTitle"><a href="#" ng-click="closeEditProjectPage()" class="addEditProjectClose">
+            <div class="addEditProjectCloseBtn"><i class="icons8-more"></i>
+                <p>ESC</p>
+            </div></a>
+            <p ng-bind="getProjectPageTitle()"></p>
+        </div>
+        <div class="addEditProjectNameContainer">
+            <input type="text" placeholder="New name for project" ng-model="projectEdit" class="inputEditProjectName">
+        </div>
+        <a href="#" ng-click="addProject()" ng-if="!isProjectEdit" class="submitEditProjectBtn">
+            <div ng-click="closeTaskPage()" class="submitEditBtn">
+                <i class="icons8-checkmark"></i>
+            </div>
+        </a>
+        <a href="#" ng-click="updateProject()" ng-if="isProjectEdit" class="submitEditProjectBtn">
+            <div ng-click="closeTaskPage()" class="submitEditBtn">
+                <i class="icons8-checkmark"></i>
+            </div>
+        </a>
+    </section>
+    <section ng-show="showTaskBlock" class="taskPage">
+        <div class="taskPageTitleBlock">
+            <a href="#" ng-click="closePageTask()" class="taskPageClose">
+                <div class="addTaskPageCloseBtn">
+                    <i class="icons8-more"></i>
+                    <p>ESC</p>
+                </div>
+            </a>
+            <div class="manageTask">
+                <a href="#" ng-click="editTask(taskId, taskName, taskDescription)" class="editTask">
+                    <i class="icons8-edit"></i>
+                </a>
+                <a href="#" ng-click="deleteTask(taskId)" class="deleteTask">
+                    <i class="icons8-delete"></i>
+                </a>
+            </div>
+            <p ng-bind="taskName" class="taskPageTitle"></p>
+        </div>
+        <div class="addTaskPageDescription">
+            <p ng-bind="taskDescription" class="taskDescription"></p>
+        </div>
+    </section>
+    <section ng-style="preloader" class="preloader">
+        <div>
+            <p>Loading ...</p>
+            <img src="img/homePage/preloader.gif" alt="Preloader">
+        </div>
+    </section>
 </html>
