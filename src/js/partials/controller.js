@@ -17,25 +17,57 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
     
     
     getSession  = function () {
-        var returnCookie;
         $http ({
             method: 'POST',
             url: 'https://api-test-task.decodeapps.io/signup'
         }).then (function successCallback(response) {
             $cookies.put ('session', response.data.session);
-            returnCookie = response.data.session;
+            sessionCookies = response.data.session;
+            checkSession();
+            return response.data.session;
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
-        return returnCookie;
     };
+ 
+    
+    checkSession  = function () {
+        $http({
+            method: 'GET',
+            url: 'https://api-test-task.decodeapps.io/session?session='+sessionCookies,
+        }).then (function successCallback(response) {
+            if (response.statusText == "OK"){
+                $scope.preloader = {display: 'block'};
+                getUser (sessionCookies);
+                getProjects (sessionCookies, false);
+            }
+            else{
+                var newSessionCookies = getSession();
+                getUser (newSessionCookies);
+                getProjects (sessionCookies, false);
+            }
+        }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+    };
+    
+    $scope.init = function () {
+        var sessionCookies = $cookies.get('session');
+        if (sessionCookies == undefined) {
+            getSession();
+        }
+        else{
+            checkSession();
+        }  
+    }
     
     
     getUser  = function (sessionCookies) {
         $http({
             method: 'GET',
-            url: 'https://api-test-task.decodeapps.io/account?session='+sessionCookies,
+            url: 'https://api-test-task.decodeapps.io/account?session=' + sessionCookies,
         }).then (function successCallback(response) {
             $scope.userAvatar = response.data.Account.image_url;
             $scope.name = response.data.Account.username;
@@ -101,7 +133,12 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
                 }
             }
         }).then (function successCallback(response) {
+            console.log(response);
             if(response.statusText = "OK") {
+                getProjects (sessionCookies,true)
+                $scope.activeProject = response.data.Project.id;
+                activeProjectName = response.data.Project.title;
+                $scope.closeEditProjectPage();
                 getProjects (sessionCookies,true);
                 $scope.closeEditProjectPage();
                 $scope.activeProject = response.data.Project.id;
@@ -113,7 +150,11 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
             // or server returns response with an error status.
         });
     };
-    
+    /*getProjects (sessionCookies, true);
+            $scope.closeProjectPage();
+            $scope.activeProject = response.data.Project.id;
+            $scope.projectTitle = projectTitle;
+            $scope.closeEditProjectPage();*/
     
     deleteThisProject = function (sessionCookies, projectId) {
         $http ({
@@ -266,17 +307,22 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
             getTasks (sessionCookies, $scope.activeProject, 20, 20, $scope.searchKeyword);
         }
     }
+    
+    
+    /*$scope.init = function () {
+=======
 
     
     $scope.init = function () {
+>>>>>>> 6caabe6fb5122c97d554f852e2dfdf5e0aaa247b
         var sessionCookies = $cookies.get('session');
         if (sessionCookies == undefined) {
             getSession ();
-        } 
+        }
         $scope.preloader = {display: 'block'};
         $http({
             method: 'GET',
-            url: 'https://api-test-task.decodeapps.io/session?session='+sessionCookies,
+            url: 'https://api-test-task.decodeapps.io/session?session=' + sessionCookies,
         }).then (function successCallback(response) {
             if (response.statusText == "OK"){
                 getUser (sessionCookies);
@@ -287,11 +333,17 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
                 getUser (newSessionCookies);
                 getProjects (sessionCookies, false);
             }
+<<<<<<< HEAD
+              }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    }
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
-    }
+    }*/
     
     
     $scope.addProject = function () {
@@ -390,14 +442,3 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
     }
     
 }]);
-
-
-
-
-
-
-
-
-
-
-
