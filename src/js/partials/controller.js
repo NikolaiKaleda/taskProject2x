@@ -8,6 +8,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
     $scope.showBlockTask = false;
     $scope.isProjectEdit = false;
     $scope.isTaskEdit = false;
+    $scope.currentDate = new Date();
     var sessionCookies = $cookies.get ('session'),
         activeProjectName;
     
@@ -88,7 +89,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
                 $scope.activeProject = response.data.projects[0].Project.id;
                 $scope.projectTitle = response.data.projects[0].Project.title;
             }
-            getTasks (sessionCookies, $scope.activeProject, 20, 20, null);
+            getTasks (sessionCookies, $scope.activeProject, 20, 0, null);
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
@@ -156,6 +157,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
             $scope.projectTitle = projectTitle;
             $scope.closeEditProjectPage();*/
     
+    
     deleteThisProject = function (sessionCookies, projectId) {
         $http ({
             method: 'DELETE',
@@ -181,6 +183,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
             method: 'GET',
             url: url,
         }).then (function successCallback(response) {
+            console.log(response);
             $scope.tasks = response.data.tasks;
             $scope.tasksCount = response.data.tasks.length;
             $scope.preloader = {display: 'none'};
@@ -204,7 +207,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
         }).then (function successCallback(response) {
         if (response.status=200)
             {
-                getTasks (sessionCookies, $scope.activeProject, 20, 20, null)
+                getTasks (sessionCookies, $scope.activeProject, 20, 0, null)
                 getProjects (sessionCookies,true);
             }
         }, function errorCallback(response) {
@@ -304,7 +307,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
     
     $scope.search = function () {
         if ($scope.searchKeyword != null) {
-            getTasks (sessionCookies, $scope.activeProject, 20, 20, $scope.searchKeyword);
+            getTasks (sessionCookies, $scope.activeProject, 20, 0, $scope.searchKeyword);
         }
     }
     
@@ -393,7 +396,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
         var sessionCookies = $cookies.get('session');
         $scope.activeProject = elemId;
         $scope.projectTitle = elemTitle;
-        getTasks (sessionCookies, $scope.activeProject, 20, 20, null);
+        getTasks (sessionCookies, $scope.activeProject, 20, 0, null);
     }
     
     $scope.addTask = function () {
