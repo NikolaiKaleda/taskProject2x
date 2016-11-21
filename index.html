@@ -61,14 +61,36 @@
           </nav>
         </section>
         <section ng-if="tasksCount != 0" class="tasks">
-          <div ng-repeat="model in tasks track by model.Task.id" class="taskItem">
-            <p class="taskDate">Today</p>
-            <div class="taskLink"><a href="#" class="taskBtn">
+          <div ng-repeat="(key, value) in (tasks | groupBy: 'created_at')" class="taskItem">
+            <p class="taskDate">{{ key }}</p>
+            <div ng-repeat="model in value" class="taskLink"><a href="#" class="taskBtn">
                 <div class="checkbox"><img src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)"></div>
                 <div ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)" class="titleTask">
                   <p class="taskText">{{model.Task.title}}</p>
                 </div></a></div>
           </div>
+          <!--.taskItem(ng-repeat="model in tasks track by model.Task.id")
+          .item(ng-if="model.Task.created_at == currentDate")
+              p.taskDate {{model.Task.created_at}}
+              .taskLink
+                  a.taskBtn(href="#")
+                      .checkbox
+                          img(src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)")
+                      .titleTask(ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)")
+                          p.taskText {{model.Task.title}}
+                          
+          
+          .item(ng-if="model.Task.created_at != currentDate")
+              p.taskDate egsherhrhrh
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+          -->
           <!--.taskItem
           p.taskDate Monday (12.06.2016)
           .taskLink
