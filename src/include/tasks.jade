@@ -1,5 +1,5 @@
 section.tasks(ng-if="tasksCount != 0")
-    .taskItem(ng-repeat="(key, value) in (tasks | groupBy: 'created_at')")
+    .taskItem(ng-repeat="(key, value) in (tasks | groupBy: 'Task.created_at')")
         p.taskDate {{ key }}
         .taskLink(ng-repeat="model in value")
             a.taskBtn(href="#")

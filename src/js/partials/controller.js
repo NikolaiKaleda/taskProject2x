@@ -1,7 +1,46 @@
-var taskProjectApp = angular.module ('taskProjectApp', ['ngCookies']);
+var taskProjectApp = angular.module ('taskProjectApp', ['ngCookies', 'angular.filter']);
+
+/*taskProjectApp.filter('date5', ['$filter', function($filter)
+{
+  return function(input)
+ {
+  if(input == null){ return ""; } 
+ 
+      var currentDate = $filter('date')(new Date(), "MM.dd.yyyy");
+      console.log(currentDate);
+var inputDate = $filter('date')(new Date(input), "MM.dd.yyyy");
+      console.log(inputDate);
+
+  if(currentDate!=inputDate)
+  {
+   var _date = $filter('date')(new Date(input), "EEEE '('MM.dd.yyyy')'");
+       // var nowDate = $filter('date')($scope.currentDate, "EEEE '('MM.dd.yyyy')'");
+  }
+  else {
+    var _date = "Today";
+  }
+ 
+  return _date.toUpperCase();
+
+ };
+
+    
+}]);*/
 
 
-taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', function ($scope, $http,$cookies) {
+
+
+
+/*taskProjectApp.filter('makeUppercase', function () {
+  return function (item) {
+      return item.toUpperCase();
+  };
+});*/
+
+
+
+
+taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', '$filter', function ($scope, $http, $cookies, $filter) {
     $scope.showBlockProjects = false;
     $scope.showBlockTask = false;
     $scope.showBlockEditProjects = false;
@@ -183,9 +222,37 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', fu
             method: 'GET',
             url: url,
         }).then (function successCallback(response) {
-            console.log(response);
+            //var a = response.data.tasks[0].Task.created_at;
+            //console.log(a);
+            //console.log(response);
+            //console.log($scope.currentDate);
+            //console.log(a.Task);
             $scope.tasks = response.data.tasks;
             $scope.tasksCount = response.data.tasks.length;
+            //$filter('date')(date, format, timezone)
+            //console.log(test);
+            //var formatted_datetime = $filter('date')('yyyy-MM-dd HH:mm:ss Z');
+            if ($scope.tasksCount != undefined) {
+                angular.forEach(response.data.tasks, function(value, key) {
+                    var nowDate = $filter('date')($scope.currentDate, "EEEE '('MM.dd.yyyy')'");
+                    //console.log(value);
+                    //console.log(value.Task.title);
+                    //console.log(value.Task.id);
+                    //console.log(value.Task.description);
+                    console.log($scope.currentDate);
+                    console.log(value.Task.created_at);
+                    /*var task = {
+                        "Task": {
+                            "id": value.Task.id,
+                            "title": value.Task.title,
+                            "description": value.Task.description,
+                            "created_at": value.Task.created_at
+                        }
+                    };*/
+                    //$scope.tasks.push(task);
+                });   
+            }
+            
             $scope.preloader = {display: 'none'};
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
