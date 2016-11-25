@@ -1,6 +1,9 @@
 var taskProjectApp = angular.module ('taskProjectApp', ['ngCookies', 'angular.filter', 'infinite-scroll']);
 
 taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', '$filter', function ($scope, $http, $cookies, $filter) {
+    $scope.taskPageCount=0;
+    $scope.page=1;
+    $scope.busy=false;
     $scope.showBlockProjects = false;
     $scope.showBlockTask = false;
     $scope.showBlockEditProjects = false;
@@ -16,21 +19,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', '$
         return id === $scope.activeProject ? 'active' : '';
     };
     
-    
-    
-    
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     getSession  = function () {
         $http ({
             method: 'POST',
@@ -104,7 +93,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', '$
                 $scope.activeProject = response.data.projects[0].Project.id;
                 $scope.projectTitle = response.data.projects[0].Project.title;
             }
-            getTasks (sessionCookies, $scope.activeProject, 20, 0, null);
+            getTasks (sessionCookies, $scope.activeProject, 10, 0, null);
         }, function errorCallback (response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
@@ -191,6 +180,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', '$
             method: 'GET',
             url: url,
         }).then (function successCallback(response) {
+            $scope.taskPageCount = Math.ceil(response.data.total_count/10);
             $scope.tasks = [];
             $scope.tasksCount = response.data.tasks.length;
             if ($scope.tasksCount != undefined) {
@@ -240,7 +230,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', '$
             }
         }).then (function successCallback (response) {
         if (response.status = 200) {
-            getTasks (sessionCookies, $scope.activeProject, 20, 0, null)
+            getTasks (sessionCookies, $scope.activeProject, 10, 0, null)
             getProjects (sessionCookies, true);
         }
         }, function errorCallback (response) {
@@ -340,7 +330,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', '$
     
     $scope.search = function () {
         if ($scope.searchKeyword != null) {
-            getTasks (sessionCookies, $scope.activeProject, 20, 0, $scope.searchKeyword);
+            getTasks (sessionCookies, $scope.activeProject, 10, 0, $scope.searchKeyword);
         }
     }
     
@@ -391,7 +381,7 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', '$
         var sessionCookies = $cookies.get('session');
         $scope.activeProject = elemId;
         $scope.projectTitle = elemTitle;
-        getTasks (sessionCookies, $scope.activeProject, 20, 0, null);
+        getTasks (sessionCookies, $scope.activeProject, 10, 0, null);
     }
     
     $scope.addTask = function () {
@@ -439,4 +429,78 @@ taskProjectApp.controller ('TaskProjectCtrl', ['$scope', '$http', '$cookies', '$
         $scope.bgStyle = {opacity: '1'};
     }
     
+    
+    $scope.nextPage = function() {
+        if ($scope.busy) return;
+        if($scope.activeProject==undefined) return;
+        var page = $scope.page;
+        if((page+1)>$scope.taskPageCount) return;
+        $scope.busy = true;
+        $scope.page ++;    
+        var offset=($scope.page-1)*10;       
+        var url = 'https://api-test-task.decodeapps.io/tasks?session=' + sessionCookies + '&project_id=' + $scope.activeProject + '&paging_size=' + 10 + '&paging_offset=' + offset;
+        $http ({
+            method: 'GET',
+            url: url,
+        }).then (function successCallback(response) {
+            if (response.data.tasks.length > 0) {
+                angular.forEach (response.data.tasks, function (value, key) {
+                    var nowDate = $filter ('date')($scope.currentDate, "EEEE '('MM.dd.yyyy')'", "+0900"),
+                        createDate = $filter ('date')(new Date(value.Task.created_at), "EEEE '('MM.dd.yyyy')'", $scope.currentTimeZone),
+                        yesterday = new Date ($scope.currentDate.getTime() - (24*60*60*1000)),
+                        createdAt,
+                        yesterdayDate = $filter ('date')(yesterday, "EEEE '('MM.dd.yyyy')'", "+0900");
+                    if (nowDate == createDate) {
+                            createdAt = "Today";
+                    }
+                    else if (yesterdayDate == createDate) {
+                        createdAt = "Yesterday";
+                    }
+                    else {
+                        createdAt = createDate;
+                    }
+                    var task = {
+                        "Task": {
+                            "id" : value.Task.id,
+                            "title" : value.Task.title,
+                            "description" : value.Task.description,
+                            "created_at" : createdAt
+                        }
+                    };
+                    $scope.tasks.push (task);
+                });   
+            }
+            $scope.busy = false;
+           
+        }, function errorCallback (response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+    }
+    
 }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

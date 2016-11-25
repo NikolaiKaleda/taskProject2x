@@ -1,4 +1,4 @@
-section.tasks(ng-if="tasksCount != 0")
+section.tasks(ng-if="tasksCount != 0" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='50')
     .taskItem(ng-repeat="(key, value) in (tasks | groupBy: 'Task.created_at')")
         p.taskDate {{ key }}
         .taskLink
@@ -8,7 +8,7 @@ section.tasks(ng-if="tasksCount != 0")
                     img(src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)")
                 .titleTask(ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)")
                     p.taskText {{model.Task.title}}
-
+    div(ng-show='busy') Loading data...
 
 section.noTasks(ng-if="tasksCount == 0")
     .bgImgTasks
