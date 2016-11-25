@@ -1,50 +1,14 @@
 section.tasks(ng-if="tasksCount != 0")
     .taskItem(ng-repeat="(key, value) in (tasks | groupBy: 'Task.created_at')")
         p.taskDate {{ key }}
-        .taskLink(ng-repeat="model in value")
-            a.taskBtn(href="#")
+        .taskLink
+            a.taskBtn(href="#" ng-repeat="model in value")
+                hr.taskSeparator(ng-if="value.length > 1")
                 .checkbox
                     img(src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)")
                 .titleTask(ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)")
                     p.taskText {{model.Task.title}}
 
-
-
-
-
-
-    //.taskItem(ng-repeat="model in tasks track by model.Task.id")
-        .item(ng-if="model.Task.created_at == currentDate")
-            p.taskDate {{model.Task.created_at}}
-            .taskLink
-                a.taskBtn(href="#")
-                    .checkbox
-                        img(src="img/homePage/content/tasks/checkbox.png" alt="Check" ng-click="compliteTask(model.Task.id)")
-                    .titleTask(ng-click="openTask(model.Task.id, model.Task.title, model.Task.description)")
-                        p.taskText {{model.Task.title}}
-                        
-        
-        .item(ng-if="model.Task.created_at != currentDate")
-            p.taskDate egsherhrhrh
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-    //.taskItem
-        p.taskDate Monday (12.06.2016)
-        .taskLink
-        
-            block taskItem6
-                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Buy a plane tickets')
-
-            hr.taskSeparator
-            
-            block taskItem7
-                +tasksItems('#','img/homePage/content/tasks/checkbox.png','Check','Fly away to the Thailand')
 
 section.noTasks(ng-if="tasksCount == 0")
     .bgImgTasks
